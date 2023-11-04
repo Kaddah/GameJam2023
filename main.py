@@ -27,9 +27,9 @@ clock = pygame.time.Clock()
 firetower = pygame.image.load('./assets/Fire_Tower.png')
 
 # enemies
-ghost_image = pygame.image.load("assets/Ghost.png")
-pumpkin_image = pygame.image.load("assets/Pumpkin.png")
-spider_image = pygame.image.load("assets/Spider.png")
+ghost_image_path = "assets/Ghost.png"
+pumpkin_image_path = "assets/Pumpkin.png"
+spider_image_path = "assets/Spider.png"
 
 fireTower_image = pygame.image.load("assets/Fire_Tower.png")
 
@@ -73,9 +73,10 @@ while True:
             exit()
         elif event.type == pygame.KEYDOWN:    
             if event.key == pygame.K_p:       
-                enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
-                enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image, 1, 5)
-                enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
+                enemy_ghost = Enemy(level.getWaypoints(), ghost_image_path, 2, 5)
+                enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image_path, 1, 5)
+                enemy_spider = Enemy(level.getWaypoints(), spider_image_path, 3, 5)
+                enemy_spider.rotation_offset = 90
                 enemies.add(enemy_ghost)
                 enemies.add(enemy_pumpkin)
                 enemies.add(enemy_spider)
