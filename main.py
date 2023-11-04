@@ -49,13 +49,6 @@ menu = pygame.sprite.Group()
 arrow = pygame.sprite.Group()
 menuTower = pygame.sprite.Group()
 
-
-# load LEVEL
-
-#tower names
-FIRETOWER_NAME = "fireTower"
-FROSTTOWER_NAME = "frostTower"
-
 #tower names
 FIRETOWER_NAME = "fireTower"
 FROSTTOWER_NAME = "frostTower"
