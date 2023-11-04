@@ -31,7 +31,7 @@ class Enemy (pygame.sprite.Sprite):
             self.kill()
         
         # calculate distance to target
-        distance = len(self.movement)
+        distance = self.movement.length()
         if distance >= self.speed:
             self.pos += self.movement.normalize() * self.speed
         else: 
