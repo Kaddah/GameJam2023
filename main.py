@@ -14,8 +14,13 @@ pygame.display.set_caption("Tower Defenc")
 # clock
 clock = pygame.time.Clock()
 
+# load images
+enemy_images = pygame.image.load ("image-file")
+
 # Grouping
 enemies = pygame.sprite.Group()
+enemy = Enemy ((200, 300), enemy_image)
+enemies.add (enemy)
 towers = pygame.sprite.Group()
 
 # load LEVEL
