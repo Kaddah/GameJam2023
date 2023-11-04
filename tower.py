@@ -9,7 +9,7 @@ class Tower(pygame.sprite.Sprite):
       pygame.sprite.Sprite.__init__(self)
       self.tile_x = tile_x
       self.tile_y = tile_y
-      self.x = (self.tile_x + 0.5) * 40
+      self.x = (self.tile_x + 0.5) * 32
       self.y = (self.tile_y + 0.5) * 32
       self.range = range
       self.enemies = enemies

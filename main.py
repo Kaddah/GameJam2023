@@ -112,10 +112,10 @@ while True:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-            mouse_tile_x = mouse_pos[0] // 40
+            mouse_tile_x = mouse_pos[0] // 32
             mouse_tile_y = mouse_pos[1] // 32
 
-            if selectedTower is not None and level.tiles[mouse_tile_x+1][mouse_tile_y-4] is None:
+            if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y-4] is None:
                 towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y, 100, enemies))
 
     # update
