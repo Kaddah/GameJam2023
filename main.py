@@ -18,23 +18,26 @@ clock = pygame.time.Clock()
 enemies = pygame.sprite.Group()
 towers = pygame.sprite.Group()
 
-# LEVEL
+# load LEVEL
 
 
-#Game Loop
+# Game Loop
 while True:
     clock.tick(60)
+    screen.fill((0, 0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
 
-    # draw
-
     # update
     towers.update()
     enemies.update()
 
-    #flip
+    # draw
+    enemies.draw(screen)
+    towers.draw(screen)
+
+    # flip
     pygame.display.flip()
