@@ -31,7 +31,14 @@ level = Level(LEVEL_DATA["Level1"])
 enemies = pygame.sprite.Group()
 
 towers = pygame.sprite.Group()
+menu = pygame.sprite.Group()
 
+# load LEVEL
+
+#setup menu
+menu.add()
+menu_surface = pygame.Surface([WIDTH, MENUHEIGHT])
+menu_surface.fill((255, 255, 255))
 
 # Game Loop
 while True:
@@ -48,12 +55,16 @@ while True:
                 enemies.add(enemy)
 
     # update
-    towers.update()
+    for tower in towers:
+        tower.update(enemies)
     enemies.update()
+    menu.update()
 
     # draw
     enemies.draw(screen)
     towers.draw(screen)
+    menu.draw(screen)
+    screen.blit(menu_surface, (0, 0))
 
     #draw waypoints
     waypoints = level.getWaypoints()
