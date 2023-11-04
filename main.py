@@ -1,6 +1,9 @@
 import pygame
+
+from level import Level
 from enemy import Enemy
 from settings import *
+import json
 
 from sys import exit
 
@@ -16,16 +19,20 @@ pygame.display.set_caption("Tower Defenc")
 clock = pygame.time.Clock()
 
 # load images
-enemy_images = pygame.image.load ("image-file")
+
+
+# load LEVEL
+with open("Levels.json") as f:
+    LEVEL_DATA = json.load(f)
+
+level = Level(LEVEL_DATA["Level1"])
 
 # Grouping
 enemies = pygame.sprite.Group()
 
-enemy = Enemy (waypoints, enemy_images)
+enemy = Enemy (level.getWaypoints())
 enemies.add (enemy)
 towers = pygame.sprite.Group()
-
-# load LEVEL
 
 
 # Game Loop
@@ -45,6 +52,10 @@ while True:
     # draw
     enemies.draw(screen)
     towers.draw(screen)
+
+    #draw waypoints
+    waypoints = level.getWaypoints()
+    pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
 
     # flip
     pygame.display.flip()
