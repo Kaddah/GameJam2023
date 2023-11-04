@@ -49,6 +49,7 @@ towers = pygame.sprite.Group()
 menu = pygame.sprite.Group()
 arrow = pygame.sprite.Group()
 menuTower = pygame.sprite.Group()
+projectiles = pygame.sprite.Group()
 
 #tower names
 FIRETOWER_NAME = "fireTower"
@@ -69,8 +70,6 @@ selectedTower = None
 # arrow
 cursor = Arrow(0, 0)
 arrow.add(cursor)
-tower = Tower(frostTower_image, 5, 10, 100, enemies)
-towers.add(tower)
 # Game Loop
 while True:
     clock.tick(60)
@@ -92,8 +91,6 @@ while True:
                 enemies.add(enemy_ghost)
                 enemies.add(enemy_pumpkin)
                 enemies.add(enemy_spider)
-                projectile = Projectile(tower, enemy_spider)
-                towers.add(projectile)
 
             if event.key == pygame.K_w:
                 cursor.vertical(-32)
@@ -118,15 +115,16 @@ while True:
 
             if selectedTower is not None and level.tiles[mouse_tile_x+1][mouse_tile_y-4] is None:
                 if selectedTower == FROSTTOWER_NAME:
-                    towers.add(Tower(frostTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies))
+                    towers.add(Tower(frostTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies, projectiles))
                 elif selectedTower == FIRETOWER_NAME:
-                    towers.add(Tower(fireTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies))
+                    towers.add(Tower(fireTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies, projectiles))
 
 
     # update
     towers.update()
     enemies.update()
     menu.update()
+    projectiles.update()
 
     # draw
     level.draw(screen)
@@ -134,7 +132,7 @@ while True:
     menu.draw(screen)
     towers.draw(screen)
     arrow.draw(screen)
-
+    projectiles.draw(screen)
     # draw waypoints
     waypoints = level.getWaypoints()
     pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
