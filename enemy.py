@@ -4,15 +4,15 @@ import math
 
 class Enemy (pygame.sprite.Sprite):
 
-    def __init__(self, waypoints):  #später noch image übergeben
+    def __init__(self, waypoints, image, speed, lifes):
         pygame.sprite.Sprite.__init__(self)
         self.waypoints = waypoints
         self.pos = waypoints [0]
         self.target_waypoint = 1
-        self.speed = 2
+        self.speed = speed
+        self.lifes = lifes
         self.angel = 0
-        self.original_image = pygame.Surface((20, 20))
-        self.original_image.fill('green')
+        self.original_image = image
         self.image = pygame.transform.rotate(self.original_image, self.angel)    
         self.rect = self.image.get_rect()
         self.rect.center = self.pos
