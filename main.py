@@ -3,6 +3,8 @@ import pygame
 from level import Level
 from enemy import Enemy
 from settings import *
+from menuitem import *
+from arrow import *
 import json
 
 from sys import exit
@@ -19,7 +21,7 @@ pygame.display.set_caption("Tower Defenc")
 clock = pygame.time.Clock()
 
 # load images
-
+firetower = pygame.image.load('./assets/Fire_Tower.png')
 
 # load LEVEL
 with open("Levels.json") as f:
@@ -34,13 +36,21 @@ enemy = Enemy(level.getWaypoints())
 enemies.add(enemy)
 towers = pygame.sprite.Group()
 menu = pygame.sprite.Group()
+arrow = pygame.sprite.Group()
 
 # load LEVEL
 
 #setup menu
-menu.add()
-menu_surface = pygame.Surface([WIDTH, MENUHEIGHT])
-menu_surface.fill((255, 255, 255))
+menu.add(MenuBackground(0,0))
+spacing = 16
+menu.add(Menuitem(spacing, 16, 64, 64, firetower))
+menu.add(Menuitem(spacing + 32 * 2, 16, 64, 64, firetower))
+menu.add(Menuitem(spacing + 32 * 4, 16, 64, 64,firetower))
+menu.add(Menuitem(spacing + 32 * 6, 16, 64, 64,firetower))
+
+#arrow
+cursor = Arrow(0,0)
+arrow.add(cursor)
 
 # Game Loop
 while True:
@@ -51,6 +61,16 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                cursor.vertical(-32)
+            elif event.key == pygame.K_s:
+                cursor.vertical(32)
+            elif event.key == pygame.K_a:
+                cursor.horizontal(-32)
+            elif event.key == pygame.K_d:
+                cursor.horizontal(32)
+                
 
     # update
     for tower in towers:
@@ -62,7 +82,7 @@ while True:
     enemies.draw(screen)
     towers.draw(screen)
     menu.draw(screen)
-    screen.blit(menu_surface, (0, 0))
+    arrow.draw(screen)
 
     #draw waypoints
     waypoints = level.getWaypoints()

@@ -3,7 +3,8 @@ import pygame
 
 class Tower(pygame.sprite.Sprite):
     
-   def __init__(self, x: int, y: int) -> tuple[int, int]:
+   def __init__(self, x: int, y: int):
+      pygame.sprite.Sprite.__init__(self)
       pass
    
    def update():
