@@ -20,6 +20,9 @@ class Enemy (pygame.sprite.Sprite):
     def update (self):
         self.move()
         self.rotate()
+    
+    def getPosition (self):
+        return self.rect.center
 
     def move (self):
         #target waypoint

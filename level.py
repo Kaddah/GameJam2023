@@ -9,4 +9,3 @@ class Level:
     def getWaypoints(self):
         waypoints = []
         return self.waypoints
-

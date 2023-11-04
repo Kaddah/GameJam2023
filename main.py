@@ -84,16 +84,13 @@ while True:
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-
             mouse_tile_x = mouse_pos[0] // 40
             mouse_tile_y = mouse_pos[1] // 38
-
-            fireTower = Tower(fireTower_image, mouse_tile_x,  mouse_tile_y) 
+            fireTower = Tower(fireTower_image, mouse_tile_x,  mouse_tile_y, 200, enemies) 
             towers.add(fireTower)
 
     # update
-    for tower in towers:
-        tower.update(enemies)
+    towers.update()
     enemies.update()
     menu.update()
 
