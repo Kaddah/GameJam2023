@@ -23,7 +23,6 @@ clock = pygame.time.Clock()
 
 # load images
 # towers
-firetower = pygame.image.load('./assets/Fire_Tower.png')
 
 # enemies
 ghost_image = pygame.image.load("assets/Ghost.png")
@@ -31,6 +30,7 @@ pumpkin_image = pygame.image.load("assets/Pumpkin.png")
 spider_image = pygame.image.load("assets/Spider.png")
 
 fireTower_image = pygame.image.load("assets/Fire_Tower.png")
+frostTower_image = pygame.image.load("assets/Frost_Tower.png")
 
 
 # load LEVEL
@@ -46,16 +46,26 @@ enemies = pygame.sprite.Group()
 towers = pygame.sprite.Group()
 menu = pygame.sprite.Group()
 arrow = pygame.sprite.Group()
+menuTower = pygame.sprite.Group()
+
 
 # load LEVEL
+
+#tower names
+FIRETOWER_NAME = "fireTower"
+FROSTTOWER_NAME = "frostTower"
 
 #setup menu
 menu.add(MenuBackground(0,0))
 spacing = 16
-menu.add(Menuitem(spacing, 16, 64, 64, firetower))
-menu.add(Menuitem(spacing + 32 * 2, 16, 64, 64, firetower))
-menu.add(Menuitem(spacing + 32 * 4, 16, 64, 64,firetower))
-menu.add(Menuitem(spacing + 32 * 6, 16, 64, 64,firetower))
+temp = Menuitem(spacing, 16, 64, 64, fireTower_image, FIRETOWER_NAME)
+menu.add(temp)
+menuTower.add(temp)
+temp = Menuitem(spacing + 32 * 2, 16, 64, 64, frostTower_image, FROSTTOWER_NAME)
+menu.add(temp)
+menuTower.add(temp)
+
+selectedTower = None
 
 #arrow
 cursor = Arrow(0,0)
@@ -64,7 +74,7 @@ arrow.add(cursor)
 # Game Loop
 while True:
     clock.tick(60)
-    screen.fill((0, 0, 0))
+    screen.fill((179, 255, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -86,6 +96,13 @@ while True:
                 cursor.horizontal(-32)
             elif event.key == pygame.K_d:
                 cursor.horizontal(32)
+
+            for tower in menuTower:
+                if tower.rect.collidepoint(cursor.rect.center):
+                    if tower.name == FROSTTOWER_NAME and event.key == pygame.K_k:
+                        selectedTower = FROSTTOWER_NAME
+                    elif tower.name == FIRETOWER_NAME and event.key == pygame.K_k:
+                        selectedTower = FIRETOWER_NAME
        
 
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -94,8 +111,17 @@ while True:
             mouse_tile_x = mouse_pos[0] // 40
             mouse_tile_y = mouse_pos[1] // 38
 
-            fireTower = Tower(fireTower_image, mouse_tile_x,  mouse_tile_y) 
-            towers.add(fireTower)
+            if selectedTower is not None:
+                if selectedTower == FROSTTOWER_NAME:
+                    towers.add(Tower(frostTower_image, mouse_tile_x,  mouse_tile_y))
+                elif selectedTower == FIRETOWER_NAME:
+                    towers.add(Tower(fireTower_image, mouse_tile_x,  mouse_tile_y))
+
+            
+
+    #mouseover
+
+    
 
     # update
     for tower in towers:
