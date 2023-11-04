@@ -11,6 +11,7 @@ pygame.init()
 
 # Create the screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+print(screen.get_size())
 
 # Title and Icon
 pygame.display.set_caption("Tower Defenc")
@@ -64,6 +65,7 @@ while True:
     menu.update()
 
     # draw
+    level.draw(screen)
     enemies.draw(screen)
     towers.draw(screen)
     menu.draw(screen)
