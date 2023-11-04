@@ -12,7 +12,7 @@ class Enemy (AnimatedSprite):
         self.target_waypoint = 1
         self.speed = speed
         self.lifes = lifes
-        self.angel = 90
+        self.angle = 90
         self.rotation_offset = 0
     
     def update (self):
@@ -21,6 +21,11 @@ class Enemy (AnimatedSprite):
     
     def getPosition (self):
         return self.rect.center
+    
+    def on_hit(self, damage):
+        self.lifes = self.lifes - damage
+        if (self.lifes <= 0):
+            self.kill()
 
     def move (self):
         #target waypoint
