@@ -134,5 +134,10 @@ while True:
     waypoints = level.getWaypoints()
     pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
 
+    # draw FPS
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render(str(int(clock.get_fps())), True, (255, 255, 255))
+    screen.blit(text, (0, 0))
+
     # flip
     pygame.display.flip()
