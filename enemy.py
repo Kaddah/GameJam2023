@@ -7,11 +7,12 @@ class Enemy (pygame.sprite.Sprite):
     def __init__(self, waypoints):  #später noch image übergeben
         pygame.sprite.Sprite.__init__(self)
         self.waypoints = waypoints
-        self.pos = Vector2(waypoints [0])
+        self.pos = waypoints [0]
         self.target_waypoint = 1
         self.speed = 2
         self.angel = 0
         self.original_image = pygame.Surface((20, 20))
+        self.original_image.fill('green')
         self.image = pygame.transform.rotate(self.original_image, self.angel)    
         self.rect = self.image.get_rect()
         self.rect.center = self.pos

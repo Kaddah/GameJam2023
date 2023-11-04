@@ -30,8 +30,8 @@ level = Level(LEVEL_DATA["Level1"])
 # Grouping
 enemies = pygame.sprite.Group()
 
-enemy = Enemy (level.getWaypoints())
-enemies.add (enemy)
+enemy = Enemy(level.getWaypoints())
+enemies.add(enemy)
 towers = pygame.sprite.Group()
 
 
