@@ -25,11 +25,13 @@ spider_image = pygame.image.load("assets/Spider.png")
 
 fireTower_image = pygame.image.load("assets/Fire_Tower.png")
 
+
 # load LEVEL
 with open("Levels.json") as f:
     LEVEL_DATA = json.load(f)
 
 level = Level(LEVEL_DATA["Level1"])
+
 
 # Grouping
 enemies = pygame.sprite.Group()
@@ -59,23 +61,18 @@ while True:
                 enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
                 enemies.add(enemy_ghost)
                 enemies.add(enemy_spider)
-        
+       
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-            fireTower = Tower(fireTower_image, mouse_pos) 
-            placeFirstTower = True 
-            placeTower = True
 
-            for tower in towers:
-                placeFirstTower = False
-                if fireTower.rect.colliderect(tower.rect):
-                    placeTower = False
+            mouse_tile_x = mouse_pos[0] // 40
+            mouse_tile_y = mouse_pos[1] // 38
 
-            if placeTower:
-                towers.add(fireTower)
-               
-            if placeFirstTower:
-                towers.add(fireTower)
+            fireTower = Tower(fireTower_image, mouse_tile_x,  mouse_tile_y) 
+            towers.add(fireTower)
+        
+
     # update
     for tower in towers:
         tower.update(enemies)
