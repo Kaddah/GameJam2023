@@ -79,7 +79,7 @@ arrow.add(cursor)
 # Game Loop
 while True:
     clock.tick(60)
-    screen.fill((179, 255, 0))
+    screen.fill((0, 0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -116,22 +116,14 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             mouse_tile_x = mouse_pos[0] // 40
-            mouse_tile_y = mouse_pos[1] // 38
+            mouse_tile_y = mouse_pos[1] // 32
 
             if selectedTower is not None:
                 if selectedTower == FROSTTOWER_NAME:
-                    towers.add(Tower(frostTower_image, mouse_tile_x,  mouse_tile_y))
+                    towers.add(Tower(frostTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies))
                 elif selectedTower == FIRETOWER_NAME:
-                    towers.add(Tower(fireTower_image, mouse_tile_x,  mouse_tile_y))
+                    towers.add(Tower(fireTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies))
 
-            
-
-    #mouseover
-
-    
-            mouse_tile_y = mouse_pos[1] // 32
-            fireTower = Tower(fireTower_image, mouse_tile_x, mouse_tile_y, 200, enemies)
-            towers.add(fireTower)
 
     # update
     towers.update()
