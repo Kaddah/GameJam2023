@@ -44,12 +44,13 @@ class Level():
                 currentWaypoint = self.waypointsRaw[i]
 
                 if prevWaypoint[1] == currentWaypoint[1] == point1[1]:
-                    if prevWaypoint[0] < point1[0] < currentWaypoint[0] or prevWaypoint[0] > point1[0] > currentWaypoint[0]:
+                    if prevWaypoint[0] < point1[0] < currentWaypoint[0] or prevWaypoint[0] > point1[0] > \
+                            currentWaypoint[0]:
                         return TileType.HORIZONTAL
                 elif prevWaypoint[0] == currentWaypoint[0] == point1[0]:
-                    if prevWaypoint[1] < point1[1] < currentWaypoint[1] or prevWaypoint[1] > point1[1] > currentWaypoint[1]:
+                    if prevWaypoint[1] < point1[1] < currentWaypoint[1] or prevWaypoint[1] > point1[1] > \
+                            currentWaypoint[1]:
                         return TileType.VERTICAL
-
 
             if self.waypointsRaw[i] == point1:
                 if i == 0:
