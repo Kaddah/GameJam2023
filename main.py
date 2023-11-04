@@ -30,8 +30,6 @@ level = Level(LEVEL_DATA["Level1"])
 # Grouping
 enemies = pygame.sprite.Group()
 
-enemy = Enemy(level.getWaypoints())
-enemies.add(enemy)
 towers = pygame.sprite.Group()
 
 
@@ -44,6 +42,10 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        elif event.type == pygame.KEYDOWN:    
+            if event.key == pygame.K_w:       
+                enemy = Enemy(level.getWaypoints())
+                enemies.add(enemy)
 
     # update
     towers.update()
