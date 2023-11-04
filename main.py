@@ -1,4 +1,5 @@
 import pygame
+from enemy import Enemy
 from settings import *
 
 from sys import exit
@@ -19,7 +20,8 @@ enemy_images = pygame.image.load ("image-file")
 
 # Grouping
 enemies = pygame.sprite.Group()
-enemy = Enemy ((200, 300), enemy_image)
+
+enemy = Enemy (waypoints, enemy_images)
 enemies.add (enemy)
 towers = pygame.sprite.Group()
 
