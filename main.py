@@ -22,8 +22,12 @@ pygame.display.set_caption("Tower Defenc")
 clock = pygame.time.Clock()
 
 # load images
+# towers
 firetower = pygame.image.load('./assets/Fire_Tower.png')
+
+# enemies
 ghost_image = pygame.image.load("assets/Ghost.png")
+pumpkin_image = pygame.image.load("assets/Pumpkin.png")
 spider_image = pygame.image.load("assets/Spider.png")
 
 fireTower_image = pygame.image.load("assets/Fire_Tower.png")
