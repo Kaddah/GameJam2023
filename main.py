@@ -73,8 +73,10 @@ while True:
         elif event.type == pygame.KEYDOWN:    
             if event.key == pygame.K_p:       
                 enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
+                enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image, 1, 5)
                 enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
                 enemies.add(enemy_ghost)
+                enemies.add(enemy_pumpkin)
                 enemies.add(enemy_spider)
             if event.key == pygame.K_w:
                 cursor.vertical(-32)
