@@ -116,7 +116,7 @@ while True:
             mouse_tile_x = mouse_pos[0] // 40
             mouse_tile_y = mouse_pos[1] // 32
 
-            if selectedTower is not None:
+            if selectedTower is not None and level.tiles[mouse_tile_x+1][mouse_tile_y-4] is None:
                 if selectedTower == FROSTTOWER_NAME:
                     towers.add(Tower(frostTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies))
                 elif selectedTower == FIRETOWER_NAME:
