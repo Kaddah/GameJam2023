@@ -17,9 +17,14 @@ clock = pygame.time.Clock()
 # Grouping
 enemies = pygame.sprite.Group()
 towers = pygame.sprite.Group()
+menu = pygame.sprite.Group()
 
 # load LEVEL
 
+#setup menu
+menu.add()
+menu_surface = pygame.Surface([WIDTH, MENUHEIGHT])
+menu_surface.fill((255, 255, 255))
 
 # Game Loop
 while True:
@@ -32,12 +37,16 @@ while True:
             exit()
 
     # update
-    towers.update()
+    for tower in towers:
+        tower.update(enemies)
     enemies.update()
+    menu.update()
 
     # draw
     enemies.draw(screen)
     towers.draw(screen)
+    menu.draw(screen)
+    screen.blit(menu_surface, (0, 0))
 
     # flip
     pygame.display.flip()
