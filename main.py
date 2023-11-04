@@ -13,7 +13,8 @@ from sys import exit
 pygame.init()
 
 # Create the screen
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+flags = pygame.FULLSCREEN | pygame.HWSURFACE
+screen = pygame.display.set_mode((WIDTH, HEIGHT), flags)
 print(screen.get_size())
 
 # Title and Icon
