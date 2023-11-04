@@ -1,25 +1,26 @@
 import pygame
 from pygame.math import Vector2
 import math
+from animated_sprite import AnimatedSprite
 
-class Enemy (pygame.sprite.Sprite):
+class Enemy (AnimatedSprite):
 
-    def __init__(self, waypoints, image, speed, lifes):
-        pygame.sprite.Sprite.__init__(self)
+    def __init__(self, waypoints, image_path, speed, lifes):
+        super().__init__(image_path)
         self.waypoints = waypoints
         self.pos = waypoints [0]
         self.target_waypoint = 1
         self.speed = speed
         self.lifes = lifes
-        self.angel = 0
-        self.original_image = image
-        self.image = pygame.transform.rotate(self.original_image, self.angel)    
-        self.rect = self.image.get_rect()
-        self.rect.center = self.pos
+        self.angel = 90
+        self.rotation_offset = 0
     
     def update (self):
         self.move()
         self.rotate()
+    
+    def getPosition (self):
+        return self.rect.center
 
     def move (self):
         #target waypoint
@@ -38,7 +39,6 @@ class Enemy (pygame.sprite.Sprite):
             if distance != 0:
                 self.pos += self.movement.normalize() * distance
             self.target_waypoint += 1
-        self.rect.center = self.pos
 
     def rotate (self):
         #calculate distance to next waypoint
@@ -47,9 +47,14 @@ class Enemy (pygame.sprite.Sprite):
         #calculate angels
         self.angle = math.degrees(math.atan2 (-distance[1], distance[0]))
 
-        #rotate image and update
-        self.image = pygame.transform.rotate(self.original_image, self.angel)    
-        self.rect = self.image.get_rect()
-        self.rect.center = self.pos
+    @property
+    def image(self):
+        return pygame.transform.rotate(super().image, self.angle + self.rotation_offset) 
+    
+    @property
+    def rect(self):
+        rect = self.image.get_rect()
+        rect.center = self.pos
+        return rect 
 
     
