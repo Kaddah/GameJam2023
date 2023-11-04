@@ -1,0 +1,7 @@
+# window
+
+GRID = 32
+MENUWIDTH = GRID * 4
+
+WIDTH = 15 * GRID + MENUWIDTH
+HEIGHT = 20 * GRID
