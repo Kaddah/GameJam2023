@@ -36,6 +36,28 @@ class Level():
             for y in range(GRIDHEIGHT):
                 self.tiles[x].append(self.isPointPath((x, y)))
 
+        self.background = pygame.Surface([WIDTH, HEIGHT])
+        # draw normal tiles
+        for i in range(GRIDWIDTH):
+            for j in range(GRIDHEIGHT):
+                img = 0
+                if self.tiles[i][j] == TileType.HORIZONTAL:
+                    img = 2
+                elif self.tiles[i][j] == TileType.VERTICAL:
+                    img = 1
+                elif self.tiles[i][j] == TileType.CORNERLEFTBOTTON:
+                    img = 5
+                elif self.tiles[i][j] == TileType.CORNERLEFTTOP:
+                    img = 4
+                elif self.tiles[i][j] == TileType.CORNERRIGHTBOTTON:
+                    img = 6
+                elif self.tiles[i][j] == TileType.CORNERRIGHTTOP:
+                    img = 3
+                else:
+                    img = 7
+
+                self.background.blit(self.images.get_image(img, 0), (i * GRID, j * GRID + MENUHEIGHT))
+
     def isPointPath(self, point1) -> TileType:
         # is Waypoint
         for i in range(1, len(self.waypoints)):
@@ -89,27 +111,7 @@ class Level():
         return self.waypoints
 
     def draw(self, screen: pygame.Surface):
-        # draw normal tiles
-        for i in range(GRIDWIDTH):
-            for j in range(GRIDHEIGHT):
-                img = 0
-                if self.tiles[i][j] == TileType.HORIZONTAL:
-                    img = 2
-                elif self.tiles[i][j] == TileType.VERTICAL:
-                    img = 1
-                elif self.tiles[i][j] == TileType.CORNERLEFTBOTTON:
-                    img = 5
-                elif self.tiles[i][j] == TileType.CORNERLEFTTOP:
-                    img = 4
-                elif self.tiles[i][j] == TileType.CORNERRIGHTBOTTON:
-                    img = 6
-                elif self.tiles[i][j] == TileType.CORNERRIGHTTOP:
-                    img = 3
-                else:
-                    img = 7
-
-                screen.blit(self.images.get_image(img, 0), (i * GRID, j * GRID + MENUHEIGHT))
-
+        screen.blit(self.background, (0, 0))
         # draw waypoints
 
         for waypoint in self.waypoints:
