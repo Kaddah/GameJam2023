@@ -2,6 +2,7 @@ import pygame
 
 from level import Level
 from enemy import Enemy
+from tower import Tower 
 from settings import *
 from menuitem import *
 from arrow import *
@@ -22,6 +23,11 @@ clock = pygame.time.Clock()
 
 # load images
 firetower = pygame.image.load('./assets/Fire_Tower.png')
+ghost_image = pygame.image.load("assets/Ghost.png")
+spider_image = pygame.image.load("assets/Spider.png")
+
+fireTower_image = pygame.image.load("assets/Fire_Tower.png")
+
 
 # load LEVEL
 with open("Levels.json") as f:
@@ -29,11 +35,10 @@ with open("Levels.json") as f:
 
 level = Level(LEVEL_DATA["Level1"])
 
+
 # Grouping
 enemies = pygame.sprite.Group()
 
-enemy = Enemy(level.getWaypoints())
-enemies.add(enemy)
 towers = pygame.sprite.Group()
 menu = pygame.sprite.Group()
 arrow = pygame.sprite.Group()
@@ -61,7 +66,12 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN:    
+            if event.key == pygame.K_p:       
+                enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
+                enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
+                enemies.add(enemy_ghost)
+                enemies.add(enemy_spider)
             if event.key == pygame.K_w:
                 cursor.vertical(-32)
             elif event.key == pygame.K_s:
@@ -70,7 +80,16 @@ while True:
                 cursor.horizontal(-32)
             elif event.key == pygame.K_d:
                 cursor.horizontal(32)
-                
+       
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+
+            mouse_tile_x = mouse_pos[0] // 40
+            mouse_tile_y = mouse_pos[1] // 38
+
+            fireTower = Tower(fireTower_image, mouse_tile_x,  mouse_tile_y) 
+            towers.add(fireTower)
 
     # update
     for tower in towers:
