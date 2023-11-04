@@ -18,6 +18,9 @@ class Enemy (AnimatedSprite):
     def update (self):
         self.move()
         self.rotate()
+    
+    def getPosition (self):
+        return self.rect.center
 
     def move (self):
         #target waypoint
