@@ -14,6 +14,7 @@ pygame.init()
 
 # Create the screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+print(screen.get_size())
 
 # Title and Icon
 pygame.display.set_caption("Tower Defenc")
@@ -22,8 +23,12 @@ pygame.display.set_caption("Tower Defenc")
 clock = pygame.time.Clock()
 
 # load images
+# towers
 firetower = pygame.image.load('./assets/Fire_Tower.png')
+
+# enemies
 ghost_image = pygame.image.load("assets/Ghost.png")
+pumpkin_image = pygame.image.load("assets/Pumpkin.png")
 spider_image = pygame.image.load("assets/Spider.png")
 
 fireTower_image = pygame.image.load("assets/Fire_Tower.png")
@@ -66,11 +71,16 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        elif event.type == pygame.KEYDOWN:    
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                exit()
             if event.key == pygame.K_p:       
                 enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
+                enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image, 1, 5)
                 enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
                 enemies.add(enemy_ghost)
+                enemies.add(enemy_pumpkin)
                 enemies.add(enemy_spider)
             if event.key == pygame.K_w:
                 cursor.vertical(-32)
@@ -95,6 +105,7 @@ while True:
     menu.update()
 
     # draw
+    level.draw(screen)
     enemies.draw(screen)
     towers.draw(screen)
     menu.draw(screen)

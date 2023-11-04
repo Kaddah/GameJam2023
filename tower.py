@@ -17,12 +17,18 @@ class Tower(pygame.sprite.Sprite):
       self.rect = self.image.get_rect()
       self.rect.center = (self.x, self.y)
    
+   def distance (self, enemy):
+      distX = enemy.getPosition()[0] - self.rect.center[0]
+      distY = enemy.getPosition()[1] - self.rect.center[1]
+      distance = math.sqrt(distX ** 2 + distY ** 2)   
+      return distance
+
    def update(self):
+      minDist = 9999999
       for enemy in self.enemies:
-         distX = enemy.getPosition()[0] - self.rect.center[0]
-         distY = enemy.getPosition()[1] - self.rect.center[1]
-         distance = math.sqrt(distX ** 2 + distY ** 2)
-         if distance <= self.range:
-            self.target = enemy
-         break
-      print (self.target)
+         dist = self.distance(enemy)
+         if dist <= self.range:
+            if dist <= minDist:
+               minDist = dist        
+               self.target = enemy      	   
+         
