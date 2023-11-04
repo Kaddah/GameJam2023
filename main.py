@@ -1,5 +1,6 @@
 import pygame
 
+from projectile import Projectile
 from level import Level
 from enemy import Enemy
 from tower import Tower
@@ -14,7 +15,7 @@ pygame.init()
 
 # Create the screen
 flags = pygame.FULLSCREEN | pygame.HWSURFACE
-screen = pygame.display.set_mode((WIDTH, HEIGHT), flags)
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 print(screen.get_size())
 
 # Title and Icon
@@ -68,7 +69,8 @@ selectedTower = None
 # arrow
 cursor = Arrow(0, 0)
 arrow.add(cursor)
-
+tower = Tower(frostTower_image, 5, 10, 100, enemies)
+towers.add(tower)
 # Game Loop
 while True:
     clock.tick(60)
@@ -90,6 +92,9 @@ while True:
                 enemies.add(enemy_ghost)
                 enemies.add(enemy_pumpkin)
                 enemies.add(enemy_spider)
+                projectile = Projectile(tower, enemy_spider)
+                towers.add(projectile)
+
             if event.key == pygame.K_w:
                 cursor.vertical(-32)
             elif event.key == pygame.K_s:
@@ -126,8 +131,8 @@ while True:
     # draw
     level.draw(screen)
     enemies.draw(screen)
-    towers.draw(screen)
     menu.draw(screen)
+    towers.draw(screen)
     arrow.draw(screen)
 
     # draw waypoints
