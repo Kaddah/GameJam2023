@@ -13,7 +13,8 @@ from sys import exit
 pygame.init()
 
 # Create the screen
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+flags = pygame.FULLSCREEN | pygame.HWSURFACE
+screen = pygame.display.set_mode((WIDTH, HEIGHT), flags)
 print(screen.get_size())
 
 # Title and Icon
@@ -71,7 +72,10 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        elif event.type == pygame.KEYDOWN:    
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                exit()
             if event.key == pygame.K_p:       
                 enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
                 enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image, 1, 5)
