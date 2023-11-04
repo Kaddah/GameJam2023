@@ -3,13 +3,13 @@ import pygame
 from projectile import Projectile
 from level import Level
 from enemy import Enemy
-from tower import Tower
-from settings import *
 from menuitem import *
 from arrow import *
 import json
 
 from sys import exit
+
+from towerfactory import TowerType, TowerFactory
 
 pygame.init()
 
@@ -50,17 +50,17 @@ menu = pygame.sprite.Group()
 arrow = pygame.sprite.Group()
 menuTower = pygame.sprite.Group()
 
-#tower names
-FIRETOWER_NAME = "fireTower"
-FROSTTOWER_NAME = "frostTower"
+towerfactoryFrost = TowerFactory(TowerType.FROST)
+towerfactoryFire = TowerFactory(TowerType.FIRE)
+
 
 # setup menu
 menu.add(MenuBackground(0, 0))
 spacing = 16
-temp = Menuitem(spacing, 16, 64, 64, fireTower_image, FIRETOWER_NAME)
+temp = Menuitem(spacing, 16, 64, 64, towerfactoryFire.image, towerfactoryFire.image, towerfactoryFire)
 menu.add(temp)
 menuTower.add(temp)
-temp = Menuitem(spacing + 32 * 2, 16, 64, 64, frostTower_image, FROSTTOWER_NAME)
+temp = Menuitem(spacing + 32 * 2, 16, 64, 64, towerfactoryFrost.image, towerfactoryFrost.name, towerfactoryFrost)
 menu.add(temp)
 menuTower.add(temp)
 
@@ -69,7 +69,7 @@ selectedTower = None
 # arrow
 cursor = Arrow(0, 0)
 arrow.add(cursor)
-tower = Tower(frostTower_image, 5, 10, 100, enemies)
+tower = towerfactoryFrost.create(5, 10, 100, enemies)
 towers.add(tower)
 # Game Loop
 while True:
@@ -105,11 +105,10 @@ while True:
                 cursor.horizontal(32)
 
             for tower in menuTower:
-                if tower.rect.collidepoint(cursor.rect.center):
-                    if tower.name == FROSTTOWER_NAME and event.key == pygame.K_k:
-                        selectedTower = FROSTTOWER_NAME
-                    elif tower.name == FIRETOWER_NAME and event.key == pygame.K_k:
-                        selectedTower = FIRETOWER_NAME
+                if tower.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_k:
+                    if tower.obj and isinstance(tower.obj, TowerFactory):
+                        selectedTower = tower.obj
+                        print("Selected Tower: ", selectedTower.name)
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
@@ -117,11 +116,7 @@ while True:
             mouse_tile_y = mouse_pos[1] // 32
 
             if selectedTower is not None and level.tiles[mouse_tile_x+1][mouse_tile_y-4] is None:
-                if selectedTower == FROSTTOWER_NAME:
-                    towers.add(Tower(frostTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies))
-                elif selectedTower == FIRETOWER_NAME:
-                    towers.add(Tower(fireTower_image, mouse_tile_x,  mouse_tile_y, 100, enemies))
-
+                towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y, 100, enemies))
 
     # update
     towers.update()
