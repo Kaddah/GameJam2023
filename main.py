@@ -2,6 +2,7 @@ import pygame
 
 from level import Level
 from enemy import Enemy
+from tower import Tower 
 from settings import *
 import json
 
@@ -21,6 +22,8 @@ clock = pygame.time.Clock()
 # load images
 ghost_image = pygame.image.load("assets/Ghost.png")
 spider_image = pygame.image.load("assets/Spider.png")
+
+fireTower_image = pygame.image.load("assets/Fire_Tower.png")
 
 # load LEVEL
 with open("Levels.json") as f:
@@ -53,10 +56,26 @@ while True:
         elif event.type == pygame.KEYDOWN:    
             if event.key == pygame.K_w:       
                 enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
-                eneemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
+                enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
                 enemies.add(enemy_ghost)
-                enemies.add(eneemy_spider)
+                enemies.add(enemy_spider)
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+            fireTower = Tower(fireTower_image, mouse_pos) 
+            placeFirstTower = True 
+            placeTower = True
 
+            for tower in towers:
+                placeFirstTower = False
+                if fireTower.rect.colliderect(tower.rect):
+                    placeTower = False
+
+            if placeTower:
+                towers.add(fireTower)
+               
+            if placeFirstTower:
+                towers.add(fireTower)
     # update
     for tower in towers:
         tower.update(enemies)
