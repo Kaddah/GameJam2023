@@ -19,7 +19,8 @@ pygame.display.set_caption("Tower Defenc")
 clock = pygame.time.Clock()
 
 # load images
-
+ghost_image = pygame.image.load("assets/Ghost.png")
+spider_image = pygame.image.load("assets/Spider.png")
 
 # load LEVEL
 with open("Levels.json") as f:
@@ -51,8 +52,10 @@ while True:
             exit()
         elif event.type == pygame.KEYDOWN:    
             if event.key == pygame.K_w:       
-                enemy = Enemy(level.getWaypoints())
-                enemies.add(enemy)
+                enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
+                eneemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
+                enemies.add(enemy_ghost)
+                enemies.add(eneemy_spider)
 
     # update
     for tower in towers:
