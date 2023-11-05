@@ -181,8 +181,8 @@ while True:
         towers.draw(screen)
         projectiles.draw(screen)
         # draw waypoints
-        waypoints = level.getWaypoints()
-        pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
+        # waypoints = level.getWaypoints()
+        # pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
 
         # Life
         text_money = font.render("Life      "+str(int(level.life)), True, (255, 255, 255))
