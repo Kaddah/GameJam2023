@@ -96,13 +96,11 @@ while True:
     elif gamestate == "running":
         for event in events:
             if event.type == ENEMYKILLED_EVENT:
-                # MONEY INCREASE HERE
-                print("Money")
+                level.money += 5
             elif event.type == LIFELOST_EVENT:
                 level.life -= 1
                 if level.life <= 0:
                     gamestate = "gameover"
-                print("Life: ", level.life)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
@@ -122,21 +120,15 @@ while True:
                             selectedTower = tower.obj
                             print("Selected Tower: ", selectedTower.name)
 
-            if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0:
-                newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
-                towers.add(newTower)
-                level.money -= newTower.costs                
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 mouse_tile_x = mouse_pos[0] // 32
                 mouse_tile_y = mouse_pos[1] // 32
 
-                if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None:
-                    towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y))
-            if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0:
-                newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
-                towers.add(newTower)
-                level.money -= newTower.costs                
+                if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0:
+                    newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
+                    towers.add(newTower)
+                    level.money -= newTower.costs
 
         # update
         towers.update()
@@ -157,15 +149,17 @@ while True:
         waypoints = level.getWaypoints()
         pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
 
+        # Life
+        text_money = font.render("Life      "+str(int(level.life)), True, (255, 255, 255))
+        screen.blit(text_money, (WIDTH/2+WIDTH/4, 50))
+        # money
+        text_money = font.render("Money "+str(int(level.money)), True, (255, 255, 255))
+        screen.blit(text_money, (WIDTH / 2 + WIDTH / 4, 10))
+
     # draw FPS
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(str(int(clock.get_fps())), True, (255, 255, 255))
     screen.blit(text, (0, 0))
-
-    #text_money = level.money
-    text_money = font.render(str(int(level.money)), True, (255, 255, 255))
-    screen.blit(text_money, (50, 0))
-    print (level.money)
 
     # flip
     pygame.display.flip()
