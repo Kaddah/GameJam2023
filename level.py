@@ -1,4 +1,5 @@
 from enum import Enum
+import random
 
 import pygame.sprite
 
@@ -21,6 +22,9 @@ TileType = Enum("TileType", "HORIZONTAL VERTICAL CORNERLEFTBOTTON CORNERLEFTTOP 
 
 class Level():
     def __init__(self, level_data: dict, enemies: pygame.sprite.Group):
+        self.spawnRate = 1000
+        self.lastSpawn = 0
+
         self.waypointsRaw = []
         self.waypoints = []
         self.enemies = enemies
@@ -31,6 +35,8 @@ class Level():
             self.waypoints.append((x, y))
 
         self.images = Spritesheet(level_data["imagePath"])
+        self.waves = level_data["waves"]
+        self.waveCounter = 0
 
         self.tiles = []
 
@@ -124,3 +130,29 @@ class Level():
 
     def createEnemy(self, name:str):
         self.enemies.add(self.enemieFactory.create(name))
+
+    def spawnNextWave(self):
+        if pygame.time.get_ticks() < self.lastSpawn + self.spawnRate:
+            return
+        self.lastSpawn = pygame.time.get_ticks()
+
+        wave = self.waves[self.waveCounter]
+        # get random enemy from wave
+        randomEnemy =  list(wave)[random.randint(0, len(wave) - 1)]
+
+        wave[randomEnemy] -= 1
+        if wave[randomEnemy] >= 0:
+            self.createEnemy(randomEnemy)
+
+        counter = 0
+        for enemy in wave:
+            counter += wave[enemy]
+
+        if counter <= 0:
+            self.waveCounter += 1
+            self.spawnRate *= 0.95
+
+
+
+
+

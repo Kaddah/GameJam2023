@@ -69,11 +69,6 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 exit()
-            if event.key == pygame.K_p:
-                level.createEnemy("Spider")
-                level.createEnemy("Pumpkin")
-                level.createEnemy("Ghost")
-
             if event.key == pygame.K_w:
                 cursor.vertical(-32)
             elif event.key == pygame.K_s:
@@ -89,7 +84,7 @@ while True:
                         selectedTower = tower.obj
                         print("Selected Tower: ", selectedTower.name)
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             mouse_tile_x = mouse_pos[0] // 32
             mouse_tile_y = mouse_pos[1] // 32
@@ -102,6 +97,8 @@ while True:
     enemies.update()
     menu.update()
     projectiles.update()
+
+    level.spawnNextWave()
 
     # draw
     level.draw(screen)
