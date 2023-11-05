@@ -36,6 +36,8 @@ class TowerFactory:
         self.range = TOWER_DATA["range"]
         self.target_mode = TOWER_DATA["target_mode"]
         self.costs = TOWER_DATA["costs"]
+        self.damage = TOWER_DATA["damage"]
+        self.attack_speed = TOWER_DATA["attack_speed"]
 
     def create(self, mouse_tile_x, mouse_tile_y):
-        return Tower(self.image, mouse_tile_x, mouse_tile_y, self.range, self.enemies_group, self.projectiles_group,self.projectile_image, self.target_mode, self.costs)
+        return Tower(self.image, mouse_tile_x, mouse_tile_y, self.range, self.enemies_group, self.projectiles_group,self.projectile_image, self.target_mode, self.damage, self.attack_speed , self.costs)

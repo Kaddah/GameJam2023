@@ -5,7 +5,7 @@ from projectile import Projectile
 
 class Tower(pygame.sprite.Sprite):
 
-    def __init__(self, image, tile_x, tile_y, range, enemies, projectiles, projectile_image, target_mode, costs):
+    def __init__(self, image, tile_x, tile_y, range, enemies, projectiles, projectile_image, target_mode, damage, attack_speed,costs):
         pygame.sprite.Sprite.__init__(self)
         self.tile_x = tile_x
         self.tile_y = tile_y
@@ -19,9 +19,10 @@ class Tower(pygame.sprite.Sprite):
         self.rect.center = (self.x, self.y)
         self.projectiles = projectiles
         self.last_shot = 0
-        self.attack_speed = 0.6 * 1000
+        self.attack_speed = attack_speed * 100
         self.projectile_image = projectile_image
         self.target_mode = target_mode
+        self.damage = damage
         self.costs = costs
 
     def distance(self, enemy):
@@ -52,16 +53,16 @@ class Tower(pygame.sprite.Sprite):
                     maxLifes = enemy.lifes
                     self.target = enemy
 
-            # find fastest enemy
-            maxSpeed = 0
-            if self.target_mode == "fastesEnemy":
-                for enemy in self.enemies:
-                    dist = self.distance(enemy)
-                    if dist <= self.range and maxSpeed < enemy.speed:
-                        maxSpeed = enemy.speed
-                        self.target = enemy
-            
+        # find fastest enemy
+        maxSpeed = 0
+        if self.target_mode == "fastesEnemy":
+            for enemy in self.enemies:
+                dist = self.distance(enemy)
+                if dist <= self.range and maxSpeed < enemy.speed:
+                    maxSpeed = enemy.speed
+                    self.target = enemy
+
         if self.target is not None:
-            projectile = Projectile(self, self.target, self.projectile_image)
+            projectile = Projectile(self, self.target, self.projectile_image, self.damage, 5)
             self.projectiles.add(projectile)
             self.last_shot = pygame.time.get_ticks()

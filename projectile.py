@@ -3,15 +3,15 @@ import pygame
 
 class Projectile(pygame.sprite.Sprite):
 
-    def __init__(self, source, target, image):
+    def __init__(self, source, target, image, damage, speed):
         super().__init__()
         self.image = image
         self.rect = self.image.get_rect()
         self.position = source.rect.center
-        self.speed = 5
+        self.speed = speed
         self.source = source
         self.target = target
-        self.damage = 5
+        self.damage = damage
 
     def update(self):
         target_rect = self.target.rect
