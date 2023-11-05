@@ -129,9 +129,6 @@ class Level():
         screen.blit(self.background, (0, 0))
         # draw waypoints
 
-        for waypoint in self.waypoints:
-            pygame.draw.circle(screen, (255, 0, 0), waypoint, 3)
-
     def createEnemy(self, name:str):
         self.enemies.add(self.enemieFactory.create(name))
 
@@ -155,6 +152,9 @@ class Level():
         if counter <= 0:
             self.waveCounter += 1
             self.spawnRate *= 0.95
+
+            if self.waveCounter >= len(self.waves):
+                pygame.event.post(pygame.event.Event(GAMEWON_EVENT, {"name": "levelFinished", "level": self}))
 
 
 class LevelMenuitem(pygame.sprite.Sprite):

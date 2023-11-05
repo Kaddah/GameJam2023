@@ -38,9 +38,9 @@
     "image_Path": "assets/Electric_Tower.png",
     "projectile_image_Path": "assets/Electric_Projectile.png",
     "target_mode": "fastesEnemy",
-    "costs": 100,
+    "costs": 200,
     "attack_speed": 1,
-    "damage": 1,
+    "damage": 5,
     "menu_image_Path": "assets/Electric_Tower_Spawn.png"
   }
 }

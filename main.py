@@ -93,7 +93,6 @@ while True:
                 exit()
 
     if gamestate == "start":
-        #TODO: Add Startscreen
         titlescreen = pygame.image.load("assets/Titlescreen.png")
         screen.blit(titlescreen, (0,0))
         for event in events:
@@ -101,9 +100,12 @@ while True:
                 gamestate = "levelselect"
                 print("Start")
     elif gamestate == "gameover":
-        #TODO: Add Gameover
         gameover = pygame.image.load("assets/Gameover.png")
         screen.blit(gameover, (0,0))
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                gamestate = "levelselect"
+                print("Start")
     elif gamestate == "levelselect":
         gameover = pygame.image.load("assets/ChoosingLevel.png")
         screen.blit(gameover, (0,0))
@@ -119,12 +121,19 @@ while True:
                     cursor.horizontal(32)
 
                 for l in levels:
-                    if l.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_k:
+                    if l.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_u:
                         level = l.level
                         gamestate = "running"
         levels.update()
         levels.draw(screen)
-        c = 1
+    elif gamestate == "gamewon":
+        #TODO: Game won screen KADDAH :D
+        gameover = pygame.image.load("assets/Gameover.png")
+        screen.blit(gameover, (0, 0))
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                gamestate = "levelselect"
+                print("Start")
     elif gamestate == "running":
         for event in events:
             if event.type == ENEMYKILLED_EVENT:
@@ -133,6 +142,9 @@ while True:
                 level.life -= 1
                 if level.life <= 0:
                     gamestate = "gameover"
+            elif event.type == GAMEWON_EVENT:
+                gamestate = "levelselect"
+                level = None
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
@@ -145,19 +157,29 @@ while True:
                     cursor.horizontal(-32)
                 elif event.key == pygame.K_d:
                     cursor.horizontal(32)
-
-                if event.key == pygame.K_k:
+                elif event.key == pygame.K_i:
+                    selectedTower = None
+                    cursor.image = pygame.image.load("assets/Arrow.png")
+                elif event.key == pygame.K_u:
                     if selectedTower is not None:
                         mouse_pos = cursor.rect.center
                         mouse_tile_x = mouse_pos[0] // 32
                         mouse_tile_y = mouse_pos[1] // 32
-
-                        if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0:
+                        if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0 and mouse_tile_y > 3:
                             newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
-                            towers.add(newTower)
-                            level.money -= newTower.costs
-                            selectedTower = None
-                            cursor.image = pygame.image.load("assets/Arrow.png")
+
+                            #check if tower collides with other towers
+                            possible = True
+                            for tower in towers:
+                                if tower.rect.collidepoint(newTower.rect.center):
+                                    possible = False
+                            if possible:
+                                towers.add(newTower)
+                                level.money -= newTower.costs
+
+                                # selectedTower = None
+                                # cursor.image = pygame.image.load("assets/Arrow.png")
+
                     else:
                         for tower in menuTower:
                             if tower.rect.collidepoint(cursor.rect.center):
@@ -182,8 +204,8 @@ while True:
         towers.draw(screen)
         projectiles.draw(screen)
         # draw waypoints
-        waypoints = level.getWaypoints()
-        pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
+        # waypoints = level.getWaypoints()
+        # pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
 
         # Life
         text_money = font.render("Life      "+str(int(level.life)), True, (255, 255, 255))
@@ -191,6 +213,9 @@ while True:
         # money
         text_money = font.render("Money "+str(int(level.money)), True, (255, 255, 255))
         screen.blit(text_money, (WIDTH / 2 + WIDTH / 4, 10))
+        # Round
+        text_money = font.render("Round " + str(int(level.waveCounter)), True, (255, 255, 255))
+        screen.blit(text_money, (WIDTH / 2 + WIDTH / 4, 90))
 
     # draw cursor
     arrow.draw(screen)
