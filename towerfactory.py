@@ -38,6 +38,7 @@ class TowerFactory:
         self.costs = TOWER_DATA["costs"]
         self.damage = TOWER_DATA["damage"]
         self.attack_speed = TOWER_DATA["attack_speed"]
+        self.menu_image = pygame.image.load(TOWER_DATA["menu_image_Path"])
 
     def create(self, mouse_tile_x, mouse_tile_y):
         return Tower(self.image, mouse_tile_x, mouse_tile_y, self.range, self.enemies_group, self.projectiles_group,self.projectile_image, self.target_mode, self.damage, self.attack_speed , self.costs)

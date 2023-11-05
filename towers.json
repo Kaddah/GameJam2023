@@ -7,7 +7,8 @@
     "attack_speed": 1,
     "damage": 1,
     "target_mode": "nextEnemy",
-    "costs": 100
+    "costs": 100,
+    "menu_image_Path": "assets/Frost_Tower_Spawn.png"
   },
   "Firetower": {
     "name": "Firetower",
@@ -17,7 +18,8 @@
     "target_mode": "strongestEnemy",
     "attack_speed": 1,
     "damage": 1,
-    "costs": 100
+    "costs": 100,
+    "menu_image_Path": "assets/Fire_Tower_Spawn.png"
   },
   "Normaltower": {
     "name": "Normaltower",
@@ -27,6 +29,7 @@
     "target_mode": "fastesEnemy",
     "costs": 100,
     "attack_speed": 1,
-    "damage": 1
+    "damage": 1,
+    "menu_image_Path": "assets/Normal_Tower_Spawn.png"
   }
 }
