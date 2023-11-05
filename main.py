@@ -111,7 +111,7 @@ while True:
                     cursor.horizontal(32)
 
                 for l in levels:
-                    if l.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_k:
+                    if l.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_u:
                         level = l.level
                         gamestate = "running"
 
