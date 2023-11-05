@@ -78,16 +78,16 @@ while True:
 
     if gamestate == "start":
         #TODO: Add Startscreen
+        titlescreen = pygame.image.load("assets/Titlescreen.png")
+        screen.blit(titlescreen, (0,0))
         for event in events:
             if event.type == pygame.KEYDOWN:
                 gamestate = "levelselect"
                 print("Start")
     elif gamestate == "gameover":
         #TODO: Add Gameover
-        font = pygame.font.Font('freesansbold.ttf', 64)
-        text = font.render("GAME OVER", True, (255, 255, 255))
-        screen.blit(text, (500, 500))
-        c = 1
+        gameover = pygame.image.load("assets/Gameover.png")
+        screen.blit(gameover, (0,0))
     elif gamestate == "levelselect":
         #TODO: Add Levelselect
         gamestate = "running"
