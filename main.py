@@ -62,9 +62,9 @@ with open("Levels.json") as f:
     LEVEL_DATA = json.load(f)
 
 # setup Levelselect
-levels.add(LevelMenuitem(16 + 32, 64, 128, 128, Level(LEVEL_DATA["Level1"], enemies)))
-levels.add(LevelMenuitem(16 + 32 * 4, 64, 128, 128, Level(LEVEL_DATA["Level2"], enemies)))
-levels.add(LevelMenuitem(16 + 32 * 7, 64, 128, 128, Level(LEVEL_DATA["Level3"], enemies)))
+levels.add(LevelMenuitem(980, 250, 128, 128, Level(LEVEL_DATA["Level1"], enemies)))
+levels.add(LevelMenuitem(550, 680, 128, 128, Level(LEVEL_DATA["Level2"], enemies)))
+levels.add(LevelMenuitem(220, 530, 128, 128, Level(LEVEL_DATA["Level3"], enemies)))
 
 
 
