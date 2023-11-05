@@ -4,6 +4,7 @@
     "range": 100,
     "image_Path": "assets/Frost_Tower.png",
     "projectile_image_Path": "assets/Frost_Projectile.png",
+    "menu_image_Path": "assets/Frost_Tower_Spawn.png",
     "target_mode": "strongestEnemy"
   },
   "Firetower": {
@@ -11,6 +12,7 @@
     "range": 100,
     "image_Path": "assets/Fire_Tower.png",
     "projectile_image_Path": "assets/Fire_Projectile.png",
+    "menu_image_Path": "assets/Fire_Tower_Spawn.png",
     "target_mode": "strongestEnemy"
   },
   "Normaltower": {
@@ -18,6 +20,7 @@
     "range": 100,
     "image_Path": "assets/Normal_Tower.png",
     "projectile_image_Path": "assets/Normal_Projectile.png",
+    "menu_image_Path": "assets/Normal_Tower_Spawn.png",
     "target_mode": "strongestEnemy"
   }
 }

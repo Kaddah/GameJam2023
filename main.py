@@ -50,13 +50,13 @@ towerfactoryNormal = TowerFactory(TowerType.NORMAL, enemies, projectiles)
 # setup menu
 menu.add(MenuBackground(0, 0))
 spacing = 16
-temp = Menuitem(spacing, 16, 64, 64, towerfactoryFire.image, towerfactoryFire.image, towerfactoryFire)
+temp = Menuitem(spacing, 16, 64, 64, towerfactoryFire.menu_image, towerfactoryFire.image, towerfactoryFire)
 menu.add(temp)
 menuTower.add(temp)
-temp = Menuitem(spacing + 32 * 2, 16, 64, 64, towerfactoryFrost.image, towerfactoryFrost.name, towerfactoryFrost)
+temp = Menuitem(spacing + 32 * 2, 16, 64, 64, towerfactoryFrost.menu_image, towerfactoryFrost.name, towerfactoryFrost)
 menu.add(temp)
 menuTower.add(temp)
-temp = Menuitem(spacing + 32 * 4, 16, 64, 64, towerfactoryNormal.image, towerfactoryNormal.name, towerfactoryNormal)
+temp = Menuitem(spacing + 32 * 4, 16, 64, 64, towerfactoryNormal.menu_image, towerfactoryNormal.name, towerfactoryNormal)
 menu.add(temp)
 menuTower.add(temp)
 
