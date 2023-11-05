@@ -63,6 +63,8 @@ with open("Levels.json") as f:
 
 # setup Levelselect
 levels.add(LevelMenuitem(32, 32, 128, 128, Level(LEVEL_DATA["Level1"], enemies)))
+levels.add(LevelMenuitem(265, 32, 128, 128, Level(LEVEL_DATA["Level2"], enemies)))
+
 
 
 level = None
@@ -103,6 +105,8 @@ while True:
         gameover = pygame.image.load("assets/Gameover.png")
         screen.blit(gameover, (0,0))
     elif gamestate == "levelselect":
+        gameover = pygame.image.load("assets/ChoosingLevel.png")
+        screen.blit(gameover, (0,0))
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
@@ -118,10 +122,7 @@ while True:
                     if l.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_k:
                         level = l.level
                         gamestate = "running"
-
-
         levels.update()
-        screen.fill((0, 100, 0))
         levels.draw(screen)
         c = 1
     elif gamestate == "running":
