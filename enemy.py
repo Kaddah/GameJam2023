@@ -8,7 +8,7 @@ from animated_sprite import AnimatedSprite
 
 class Enemy(AnimatedSprite):
 
-    def __init__(self, waypoints, image, speed, lifes):
+    def __init__(self, waypoints, image, speed, lifes, rotation_offset):
         super().__init__(image)
         self.waypoints = waypoints
         self.pos = waypoints[0]
@@ -16,7 +16,7 @@ class Enemy(AnimatedSprite):
         self.speed = speed
         self.lifes = lifes
         self.angle = 90
-        self.rotation_offset = 0
+        self.rotation_offset = rotation_offset
 
     def update(self):
         self.move()

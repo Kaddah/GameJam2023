@@ -22,18 +22,6 @@ pygame.display.set_caption("Tower Defenc")
 # clock
 clock = pygame.time.Clock()
 
-# load images
-# enemies
-ghost_image = gif_pygame.load("assets/Ghost.png")
-pumpkin_image = gif_pygame.load("assets/Pumpkin.png")
-spider_image = gif_pygame.load("assets/Spider.png")
-
-# load LEVEL
-with open("Levels.json") as f:
-    LEVEL_DATA = json.load(f)
-
-level = Level(LEVEL_DATA["Level1"])
-
 # Grouping
 enemies = pygame.sprite.Group()
 
@@ -58,6 +46,12 @@ menuTower.add(temp)
 
 selectedTower = None
 
+# load LEVEL
+with open("Levels.json") as f:
+    LEVEL_DATA = json.load(f)
+
+level = Level(LEVEL_DATA["Level1"],enemies)
+
 # arrow
 cursor = Arrow(0, 0)
 arrow.add(cursor)
@@ -76,13 +70,9 @@ while True:
                 pygame.quit()
                 exit()
             if event.key == pygame.K_p:
-                enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
-                enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image, 1, 5)
-                enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
-                enemy_spider.rotation_offset = 90
-                enemies.add(enemy_ghost)
-                enemies.add(enemy_pumpkin)
-                enemies.add(enemy_spider)
+                level.createEnemy("Spider")
+                level.createEnemy("Pumpkin")
+                level.createEnemy("Ghost")
 
             if event.key == pygame.K_w:
                 cursor.vertical(-32)
