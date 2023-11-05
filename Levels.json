@@ -1,8 +1,10 @@
 {
   "Level1": {
+    "name": "Level 1",
     "imagePath": "assets/SpriteSheetLevel.png",
     "money": 100000,
     "life": 20,
+    "menuIcon_Path": "assets/Pumpkin.png",
     "waves": [
       {
         "Spider": 5,

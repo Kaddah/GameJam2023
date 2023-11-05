@@ -4,8 +4,8 @@
     "range": 100,
     "image_Path": "assets/Frost_Tower.png",
     "projectile_image_Path": "assets/Frost_Projectile.png",
-    "attack_speed": 1,
-    "damage": 1,
+    "attack_speed": 3,
+    "damage": 3,
     "target_mode": "nextEnemy",
     "costs": 100,
     "menu_image_Path": "assets/Frost_Tower_Spawn.png"
@@ -16,7 +16,7 @@
     "image_Path": "assets/Fire_Tower.png",
     "projectile_image_Path": "assets/Fire_Projectile.png",
     "target_mode": "strongestEnemy",
-    "attack_speed": 5,
+    "attack_speed": 8,
     "damage": 1,
     "costs": 100,
     "menu_image_Path": "assets/Fire_Tower_Spawn.png"
@@ -28,8 +28,8 @@
     "projectile_image_Path": "assets/Normal_Projectile.png",
     "target_mode": "fastesEnemy",
     "costs": 100,
-    "attack_speed": 1,
-    "damage": 1,
+    "attack_speed": 5,
+    "damage": 2,
     "menu_image_Path": "assets/Normal_Tower_Spawn.png"
   },
   "Electrictower": {

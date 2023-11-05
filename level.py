@@ -41,6 +41,8 @@ class Level():
 
         self.tiles = []
         self.money = level_data["money"]
+        self.menuIcon = pygame.image.load(level_data["menuIcon_Path"])
+        self.name = level_data["name"]
 
         for x in range(GRIDWIDTH):
             self.tiles.append([])
@@ -153,6 +155,18 @@ class Level():
         if counter <= 0:
             self.waveCounter += 1
             self.spawnRate *= 0.95
+
+
+class LevelMenuitem(pygame.sprite.Sprite):
+
+    def __init__(self, x: int, y: int, width: int, height: int, level: Level):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.transform.scale(level.menuIcon, (width, height))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.name = level.name
+        self.level = level
+
 
 
 
