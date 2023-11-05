@@ -4,9 +4,9 @@ import gif_pygame
 
 class AnimatedSprite(pygame.sprite.Sprite):
 
-    def __init__(self, image_path):
+    def __init__(self, image):
         super().__init__()
-        self.animated = gif_pygame.load(image_path)
+        self.animated = image
 
     @property
     def image(self):

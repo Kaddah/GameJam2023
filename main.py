@@ -1,3 +1,4 @@
+import gif_pygame
 import pygame
 
 from projectile import Projectile
@@ -26,9 +27,9 @@ clock = pygame.time.Clock()
 
 # load images
 # enemies
-ghost_image_path = "assets/Ghost.png"
-pumpkin_image_path = "assets/Pumpkin.png"
-spider_image_path = "assets/Spider.png"
+ghost_image = gif_pygame.load("assets/Ghost.png")
+pumpkin_image = gif_pygame.load("assets/Pumpkin.png")
+spider_image = gif_pygame.load("assets/Spider.png")
 
 # load LEVEL
 with open("Levels.json") as f:
@@ -78,9 +79,9 @@ while True:
                 pygame.quit()
                 exit()
             if event.key == pygame.K_p:
-                enemy_ghost = Enemy(level.getWaypoints(), ghost_image_path, 2, 5)
-                enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image_path, 1, 5)
-                enemy_spider = Enemy(level.getWaypoints(), spider_image_path, 3, 5)
+                enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
+                enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image, 1, 5)
+                enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
                 enemy_spider.rotation_offset = 90
                 enemies.add(enemy_ghost)
                 enemies.add(enemy_pumpkin)
