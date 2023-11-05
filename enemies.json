@@ -9,14 +9,14 @@
   {
     "name": "Pumpkin",
     "image_Path": "assets/Pumpkin.png",
-    "lifes": 8,
+    "lifes": 10,
     "speed": 1,
     "rotation_offset": 0
   },
   {
     "name": "Spider",
     "image_Path": "assets/Spider.png",
-    "lifes": 2,
+    "lifes": 3,
     "speed": 4,
     "rotation_offset": 90
   }
