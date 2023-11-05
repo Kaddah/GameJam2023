@@ -129,9 +129,6 @@ class Level():
         screen.blit(self.background, (0, 0))
         # draw waypoints
 
-        for waypoint in self.waypoints:
-            pygame.draw.circle(screen, (255, 0, 0), waypoint, 3)
-
     def createEnemy(self, name:str):
         self.enemies.add(self.enemieFactory.create(name))
 
