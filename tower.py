@@ -19,7 +19,7 @@ class Tower(pygame.sprite.Sprite):
         self.rect.center = (self.x, self.y)
         self.projectiles = projectiles
         self.last_shot = 0
-        self.attack_speed = attack_speed * 100
+        self.attack_speed = (11 - attack_speed) *100
         self.projectile_image = projectile_image
         self.target_mode = target_mode
         self.damage = damage

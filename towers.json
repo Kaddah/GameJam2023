@@ -16,7 +16,7 @@
     "image_Path": "assets/Fire_Tower.png",
     "projectile_image_Path": "assets/Fire_Projectile.png",
     "target_mode": "strongestEnemy",
-    "attack_speed": 1,
+    "attack_speed": 5,
     "damage": 1,
     "costs": 100,
     "menu_image_Path": "assets/Fire_Tower_Spawn.png"
