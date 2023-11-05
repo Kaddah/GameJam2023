@@ -5,7 +5,7 @@ from projectile import Projectile
 
 class Tower(pygame.sprite.Sprite):
 
-    def __init__(self, image, tile_x, tile_y, range, enemies, projectiles, projectile_image, target_mode):
+    def __init__(self, image, tile_x, tile_y, range, enemies, projectiles, projectile_image, target_mode, costs):
         pygame.sprite.Sprite.__init__(self)
         self.tile_x = tile_x
         self.tile_y = tile_y
@@ -22,6 +22,7 @@ class Tower(pygame.sprite.Sprite):
         self.attack_speed = 0.6 * 1000
         self.projectile_image = projectile_image
         self.target_mode = target_mode
+        self.costs = costs
 
     def distance(self, enemy):
         vec = pygame.math.Vector2(enemy.rect.center[0] - self.x, enemy.rect.center[1] - self.y)
@@ -49,6 +50,15 @@ class Tower(pygame.sprite.Sprite):
                 if maxLifes < lifes:
                     maxLifes = lifes
                     self.target = enemy
+
+            # find fastest enemy
+            maxSpeed = 0
+            if self.target_mode == "fastesEnemy":
+                for enemy in self.enemies:
+                    speed = enemy.speed
+                    if maxSpeed < speed:
+                        maxSpeed = speed
+                        self.target = enemy
             
         if self.target is not None:
             projectile = Projectile(self, self.target, self.projectile_image)
