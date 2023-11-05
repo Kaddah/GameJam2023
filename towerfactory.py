@@ -4,6 +4,8 @@ import pygame
 
 from tower import Tower
 
+import json
+
 
 class TowerType(Enum):
     FROST = "Frosttower"
@@ -11,19 +13,24 @@ class TowerType(Enum):
 
 
 class TowerFactory:
-    def __init__(self, type: TowerType):
+    def __init__(self, type: TowerType, enemies_group: pygame.sprite.Group, projectiles_group: pygame.sprite.Group):
         self.type = type
+        self.enemies_group = enemies_group
+        self.projectiles_group = projectiles_group
 
-        # It would be better to configure towers via some JSON file
+        with open("towers.json") as f:
+            TOWER_DATA = json.load(f)
+
         match type:
             case TowerType.FIRE:
-                self.image = pygame.image.load("assets/Fire_Tower.png")
-                self.projectile_image = pygame.image.load("assets/Fire_Projectile.png")
-                self.name = "Firetower"
+                TOWER_DATA = TOWER_DATA["Firetower"]
             case TowerType.FROST:
-                self.image = pygame.image.load("assets/Frost_Tower.png")
-                self.name = "Frosttower"
+                TOWER_DATA = TOWER_DATA["Frosttower"]
 
-    def create(self, mouse_tile_x, mouse_tile_y, range, enemies_group, projectiles_group):
-        return Tower(self.image, mouse_tile_x, mouse_tile_y, range, enemies_group, projectiles_group,
-                     self.projectile_image)
+        self.image = pygame.image.load(TOWER_DATA["image_Path"])
+        self.projectile_image = pygame.image.load(TOWER_DATA["projectile_image_Path"])
+        self.name = TOWER_DATA["name"]
+        self.range = TOWER_DATA["range"]
+
+    def create(self, mouse_tile_x, mouse_tile_y):
+        return Tower(self.image, mouse_tile_x, mouse_tile_y, self.range, self.enemies_group, self.projectiles_group,self.projectile_image)

@@ -43,8 +43,8 @@ arrow = pygame.sprite.Group()
 menuTower = pygame.sprite.Group()
 projectiles = pygame.sprite.Group()
 
-towerfactoryFrost = TowerFactory(TowerType.FROST)
-towerfactoryFire = TowerFactory(TowerType.FIRE)
+towerfactoryFrost = TowerFactory(TowerType.FROST, enemies, projectiles)
+towerfactoryFire = TowerFactory(TowerType.FIRE, enemies, projectiles)
 
 # setup menu
 menu.add(MenuBackground(0, 0))
@@ -105,7 +105,7 @@ while True:
             mouse_tile_y = mouse_pos[1] // 32
 
             if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None:
-                towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y, 100, enemies, projectiles))
+                towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y))
 
     # update
     towers.update()

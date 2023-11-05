@@ -1,0 +1,14 @@
+{
+  "Frosttower": {
+    "name": "Frosttower",
+    "range": 100,
+    "image_Path": "assets/Frost_Tower.png",
+    "projectile_image_Path": "assets/Fire_Projectile.png"
+  },
+  "Firetower": {
+    "name": "Firetower",
+    "range": 100,
+    "image_Path": "assets/Fire_Tower.png",
+    "projectile_image_Path": "assets/Fire_Projectile.png"
+  }
+}
