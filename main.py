@@ -140,19 +140,19 @@ while True:
                     cursor.horizontal(-32)
                 elif event.key == pygame.K_d:
                     cursor.horizontal(32)
-
-                if event.key == pygame.K_k:
+                elif event.key == pygame.K_i:
+                    selectedTower = None
+                    cursor.image = pygame.image.load("assets/Arrow.png")
+                elif event.key == pygame.K_u:
                     if selectedTower is not None:
                         mouse_pos = cursor.rect.center
                         mouse_tile_x = mouse_pos[0] // 32
                         mouse_tile_y = mouse_pos[1] // 32
-
                         if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0:
                             newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
                             towers.add(newTower)
                             level.money -= newTower.costs
-                            selectedTower = None
-                            cursor.image = pygame.image.load("assets/Arrow.png")
+
                     else:
                         for tower in menuTower:
                             if tower.rect.collidepoint(cursor.rect.center):
