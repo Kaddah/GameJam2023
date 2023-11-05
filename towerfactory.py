@@ -18,10 +18,12 @@ class TowerFactory:
         match type:
             case TowerType.FIRE:
                 self.image = pygame.image.load("assets/Fire_Tower.png")
+                self.projectile_image = pygame.image.load("assets/Fire_Projectile.png")
                 self.name = "Firetower"
             case TowerType.FROST:
                 self.image = pygame.image.load("assets/Frost_Tower.png")
                 self.name = "Frosttower"
 
-    def create(self, mouse_tile_x, mouse_tile_y, range, enemies_group):
-        return Tower(self.image, mouse_tile_x, mouse_tile_y, range, enemies_group)
+    def create(self, mouse_tile_x, mouse_tile_y, range, enemies_group, projectiles_group):
+        return Tower(self.image, mouse_tile_x, mouse_tile_y, range, enemies_group, projectiles_group,
+                     self.projectile_image)

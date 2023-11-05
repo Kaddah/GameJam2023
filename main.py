@@ -25,16 +25,10 @@ pygame.display.set_caption("Tower Defenc")
 clock = pygame.time.Clock()
 
 # load images
-# towers
-
 # enemies
 ghost_image_path = "assets/Ghost.png"
 pumpkin_image_path = "assets/Pumpkin.png"
 spider_image_path = "assets/Spider.png"
-
-fireTower_image = pygame.image.load("assets/Fire_Tower.png")
-frostTower_image = pygame.image.load("assets/Frost_Tower.png")
-
 
 # load LEVEL
 with open("Levels.json") as f:
@@ -54,7 +48,6 @@ projectiles = pygame.sprite.Group()
 towerfactoryFrost = TowerFactory(TowerType.FROST)
 towerfactoryFire = TowerFactory(TowerType.FIRE)
 
-
 # setup menu
 menu.add(MenuBackground(0, 0))
 spacing = 16
@@ -70,8 +63,7 @@ selectedTower = None
 # arrow
 cursor = Arrow(0, 0)
 arrow.add(cursor)
-tower = towerfactoryFrost.create(5, 10, 100, enemies)
-towers.add(tower)
+
 # Game Loop
 while True:
     clock.tick(60)
@@ -114,7 +106,7 @@ while True:
             mouse_tile_x = mouse_pos[0] // 32
             mouse_tile_y = mouse_pos[1] // 32
 
-            if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y-4] is None:
+            if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None:
                 towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y, 100, enemies, projectiles))
 
     # update

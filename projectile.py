@@ -1,10 +1,11 @@
 import pygame
 
+
 class Projectile(pygame.sprite.Sprite):
-    
-    def __init__(self, source, target):
+
+    def __init__(self, source, target, image):
         super().__init__()
-        self.image = pygame.image.load("assets/Fire_Projectile.png")
+        self.image = image
         self.rect = self.image.get_rect()
         self.position = source.rect.center
         self.speed = 5
@@ -22,5 +23,3 @@ class Projectile(pygame.sprite.Sprite):
         vec.from_polar((self.speed, angle))
         self.position = (self.position[0] + vec.x, self.position[1] + vec.y)
         self.rect.center = self.position
-
-    
