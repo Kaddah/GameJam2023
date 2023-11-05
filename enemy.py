@@ -8,8 +8,8 @@ from animated_sprite import AnimatedSprite
 
 class Enemy(AnimatedSprite):
 
-    def __init__(self, waypoints, image_path, speed, lifes):
-        super().__init__(image_path)
+    def __init__(self, waypoints, image, speed, lifes):
+        super().__init__(image)
         self.waypoints = waypoints
         self.pos = waypoints[0]
         self.target_waypoint = 1
