@@ -35,29 +35,30 @@ class Tower(pygame.sprite.Sprite):
             return
 
         self.target = None
-        if self.target_mode == "strongestEnemy":
+        if self.target_mode == "nextEnemy":
             # find closest enemy
             for enemy in self.enemies:
                 dist = self.distance(enemy)
                 if dist <= self.range and dist <= minDist:
                     minDist = dist
                     self.target = enemy
-        if self.target_mode == "nextEnemy":
+
+        if self.target_mode == "strongestEnemy":
             # find strongest enemy
             maxLifes = -1
             for enemy in self.enemies:
-                lifes = enemy.lifes
-                if maxLifes < lifes:
-                    maxLifes = lifes
+                dist = self.distance(enemy)
+                if dist <= self.range and maxLifes < enemy.lifes:
+                    maxLifes = enemy.lifes
                     self.target = enemy
 
             # find fastest enemy
             maxSpeed = 0
             if self.target_mode == "fastesEnemy":
                 for enemy in self.enemies:
-                    speed = enemy.speed
-                    if maxSpeed < speed:
-                        maxSpeed = speed
+                    dist = self.distance(enemy)
+                    if dist <= self.range and maxSpeed < enemy.speed:
+                        maxSpeed = enemy.speed
                         self.target = enemy
             
         if self.target is not None:
