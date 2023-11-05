@@ -100,6 +100,10 @@ while True:
     elif gamestate == "gameover":
         gameover = pygame.image.load("assets/Gameover.png")
         screen.blit(gameover, (0,0))
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                gamestate = "levelselect"
+                print("Start")
     elif gamestate == "levelselect":
         levelSelect = pygame.image.load("assets/Levelselect_Screen.png")
         screen.blit(levelSelect, (0,0))
@@ -123,7 +127,14 @@ while True:
         levels.update()
         screen.fill((0, 100, 0))
         levels.draw(screen)
-        c = 1
+    elif gamestate == "gamewon":
+        #TODO: Game won screen KADDAH :D
+        gameover = pygame.image.load("assets/Gameover.png")
+        screen.blit(gameover, (0, 0))
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                gamestate = "levelselect"
+                print("Start")
     elif gamestate == "running":
         for event in events:
             if event.type == ENEMYKILLED_EVENT:
@@ -132,6 +143,9 @@ while True:
                 level.life -= 1
                 if level.life <= 0:
                     gamestate = "gameover"
+            elif event.type == GAMEWON_EVENT:
+                gamestate = "levelselect"
+                level = None
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
@@ -152,10 +166,20 @@ while True:
                         mouse_pos = cursor.rect.center
                         mouse_tile_x = mouse_pos[0] // 32
                         mouse_tile_y = mouse_pos[1] // 32
-                        if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0:
+                        if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0 and mouse_tile_y > 3:
                             newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
-                            towers.add(newTower)
-                            level.money -= newTower.costs
+
+                            #check if tower collides with other towers
+                            possible = True
+                            for tower in towers:
+                                if tower.rect.collidepoint(newTower.rect.center):
+                                    possible = False
+                            if possible:
+                                towers.add(newTower)
+                                level.money -= newTower.costs
+
+                                # selectedTower = None
+                                # cursor.image = pygame.image.load("assets/Arrow.png")
 
                     else:
                         for tower in menuTower:
@@ -190,6 +214,9 @@ while True:
         # money
         text_money = font.render("Money "+str(int(level.money)), True, (255, 255, 255))
         screen.blit(text_money, (WIDTH / 2 + WIDTH / 4, 10))
+        # Round
+        text_money = font.render("Round " + str(int(level.waveCounter)), True, (255, 255, 255))
+        screen.blit(text_money, (WIDTH / 2 + WIDTH / 4, 90))
 
     # draw cursor
     arrow.draw(screen)

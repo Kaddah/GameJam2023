@@ -153,6 +153,9 @@ class Level():
             self.waveCounter += 1
             self.spawnRate *= 0.95
 
+            if self.waveCounter >= len(self.waves):
+                pygame.event.post(pygame.event.Event(GAMEWON_EVENT, {"name": "levelFinished", "level": self}))
+
 
 class LevelMenuitem(pygame.sprite.Sprite):
 
