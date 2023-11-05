@@ -31,5 +31,16 @@
     "attack_speed": 5,
     "damage": 2,
     "menu_image_Path": "assets/Normal_Tower_Spawn.png"
+  },
+  "Electrictower": {
+    "name": "Electrictower",
+    "range": 100,
+    "image_Path": "assets/Electric_Tower.png",
+    "projectile_image_Path": "assets/Electric_Projectile.png",
+    "target_mode": "fastesEnemy",
+    "costs": 100,
+    "attack_speed": 1,
+    "damage": 1,
+    "menu_image_Path": "assets/Electric_Tower_Spawn.png"
   }
 }

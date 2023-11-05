@@ -11,6 +11,7 @@ class TowerType(Enum):
     FROST = "Frosttower"
     FIRE = "Firetower"
     NORMAL = "Normaltower"
+    ELECTRIC = "Electrictower"
 
 
 class TowerFactory:
@@ -29,6 +30,8 @@ class TowerFactory:
                 TOWER_DATA = TOWER_DATA["Frosttower"]
             case TowerType.NORMAL:
                 TOWER_DATA = TOWER_DATA["Normaltower"]
+            case TowerType.ELECTRIC:
+                TOWER_DATA = TOWER_DATA["Electrictower"]
 
         self.image = pygame.image.load(TOWER_DATA["image_Path"])
         self.projectile_image = pygame.image.load(TOWER_DATA["projectile_image_Path"])
