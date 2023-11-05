@@ -34,6 +34,7 @@ class Level():
             self.waypointsRaw.append((waypoint["x"], waypoint["y"]))
             self.waypoints.append((x, y))
 
+        self.life = level_data["life"]
         self.images = Spritesheet(level_data["imagePath"])
         self.waves = level_data["waves"]
         self.waveCounter = 0
