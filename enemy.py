@@ -28,6 +28,7 @@ class Enemy(AnimatedSprite):
     def on_hit(self, damage):
         self.lifes = self.lifes - damage
         if (self.lifes <= 0):
+            pygame.event.post(pygame.event.Event(pygame.USEREVENT, attr1=self))
             self.kill()
 
     def move(self):
@@ -37,6 +38,7 @@ class Enemy(AnimatedSprite):
             self.movement = self.target - self.pos
         else:
             # enemy reached end of path
+            pygame.event.post(pygame.event.Event(pygame.USEREVENT+1, attr1=self))
             self.kill()
 
         # calculate distance to target

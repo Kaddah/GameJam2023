@@ -2,6 +2,7 @@ import json
 from sys import exit
 
 import gif_pygame
+import pygame
 
 from arrow import *
 from enemy import Enemy
@@ -60,60 +61,86 @@ level = Level(LEVEL_DATA["Level1"],enemies)
 cursor = Arrow(0, 0)
 arrow.add(cursor)
 
+# GAME States
+gamestate = "start"
+
 # Game Loop
 while True:
     clock.tick(60)
     screen.fill((0, 0, 0))
 
-    for event in pygame.event.get():
+    # events
+    events = pygame.event.get()
+    for event in events:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                exit()
-            if event.key == pygame.K_w:
-                cursor.vertical(-32)
-            elif event.key == pygame.K_s:
-                cursor.vertical(32)
-            elif event.key == pygame.K_a:
-                cursor.horizontal(-32)
-            elif event.key == pygame.K_d:
-                cursor.horizontal(32)
 
-            for tower in menuTower:
-                if tower.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_k:
-                    if tower.obj and isinstance(tower.obj, TowerFactory):
-                        selectedTower = tower.obj
-                        print("Selected Tower: ", selectedTower.name)
+    if gamestate == "start":
+        #TODO: Add Startscreen
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                gamestate = "running"
+                print("Start")
+    elif gamestate == "gameover":
+        #TODO: Add Gameover
+        c = 1
+    elif gamestate == "levelselect":
+        #TODO: Add Levelselect
+        c = 1
+    elif gamestate == "running":
+        for event in events:
+            if event.type == ENEMYKILLED_EVENT:
+                # MONEY INCREASE HERE
+                print("Money")
+            elif event.type == LIFELOST_EVENT:
+                level.life -= 1
+                print("Life: ", level.life)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    exit()
+                if event.key == pygame.K_w:
+                    cursor.vertical(-32)
+                elif event.key == pygame.K_s:
+                    cursor.vertical(32)
+                elif event.key == pygame.K_a:
+                    cursor.horizontal(-32)
+                elif event.key == pygame.K_d:
+                    cursor.horizontal(32)
 
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
-            mouse_tile_x = mouse_pos[0] // 32
-            mouse_tile_y = mouse_pos[1] // 32
+                for tower in menuTower:
+                    if tower.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_k:
+                        if tower.obj and isinstance(tower.obj, TowerFactory):
+                            selectedTower = tower.obj
+                            print("Selected Tower: ", selectedTower.name)
 
-            if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None:
-                towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y))
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                mouse_tile_x = mouse_pos[0] // 32
+                mouse_tile_y = mouse_pos[1] // 32
 
-    # update
-    towers.update()
-    enemies.update()
-    menu.update()
-    projectiles.update()
+                if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None:
+                    towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y))
 
-    level.spawnNextWave()
+        # update
+        towers.update()
+        enemies.update()
+        menu.update()
+        projectiles.update()
 
-    # draw
-    level.draw(screen)
-    enemies.draw(screen)
-    menu.draw(screen)
-    towers.draw(screen)
-    arrow.draw(screen)
-    projectiles.draw(screen)
-    # draw waypoints
-    waypoints = level.getWaypoints()
-    pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
+        level.spawnNextWave()
+
+        # draw
+        level.draw(screen)
+        enemies.draw(screen)
+        menu.draw(screen)
+        towers.draw(screen)
+        arrow.draw(screen)
+        projectiles.draw(screen)
+        # draw waypoints
+        waypoints = level.getWaypoints()
+        pygame.draw.lines(screen, (255, 0, 0), False, waypoints)
 
     # draw FPS
     font = pygame.font.Font('freesansbold.ttf', 32)
