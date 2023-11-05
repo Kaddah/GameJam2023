@@ -127,9 +127,8 @@ while True:
         levels.update()
         levels.draw(screen)
     elif gamestate == "gamewon":
-        #TODO: Game won screen KADDAH :D
-        gameover = pygame.image.load("assets/Gameover.png")
-        screen.blit(gameover, (0, 0))
+        winscreen = pygame.image.load("assets/Winscreen.png")
+        screen.blit(winscreen, (0, 0))
         for event in events:
             if event.type == pygame.KEYDOWN:
                 gamestate = "levelselect"
