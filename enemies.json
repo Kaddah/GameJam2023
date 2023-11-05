@@ -3,21 +3,21 @@
     "name": "Ghost",
     "image_Path": "assets/Ghost.png",
     "lifes": 5,
-    "speed": 1,
+    "speed": 3,
     "rotation_offset": 0
   },
   {
     "name": "Pumpkin",
     "image_Path": "assets/Pumpkin.png",
-    "lifes": 3,
-    "speed": 2,
+    "lifes": 8,
+    "speed": 1,
     "rotation_offset": 0
   },
   {
     "name": "Spider",
     "image_Path": "assets/Spider.png",
     "lifes": 2,
-    "speed": 3,
+    "speed": 4,
     "rotation_offset": 90
   }
 ]
