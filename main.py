@@ -55,7 +55,7 @@ selectedTower = None
 with open("Levels.json") as f:
     LEVEL_DATA = json.load(f)
 
-level = Level(LEVEL_DATA["Level1"],enemies)
+level = None
 
 # arrow
 cursor = Arrow(0, 0)
@@ -80,13 +80,18 @@ while True:
         #TODO: Add Startscreen
         for event in events:
             if event.type == pygame.KEYDOWN:
-                gamestate = "running"
+                gamestate = "levelselect"
                 print("Start")
     elif gamestate == "gameover":
         #TODO: Add Gameover
+        font = pygame.font.Font('freesansbold.ttf', 64)
+        text = font.render("GAME OVER", True, (255, 255, 255))
+        screen.blit(text, (500, 500))
         c = 1
     elif gamestate == "levelselect":
         #TODO: Add Levelselect
+        gamestate = "running"
+        level = Level(LEVEL_DATA["Level1"], enemies)
         c = 1
     elif gamestate == "running":
         for event in events:
@@ -95,6 +100,8 @@ while True:
                 print("Money")
             elif event.type == LIFELOST_EVENT:
                 level.life -= 1
+                if level.life <= 0:
+                    gamestate = "gameover"
                 print("Life: ", level.life)
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
