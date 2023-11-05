@@ -35,6 +35,7 @@ projectiles = pygame.sprite.Group()
 towerfactoryFrost = TowerFactory(TowerType.FROST, enemies, projectiles)
 towerfactoryFire = TowerFactory(TowerType.FIRE, enemies, projectiles)
 towerfactoryNormal = TowerFactory(TowerType.NORMAL, enemies, projectiles)
+towerfactoryElectric = TowerFactory(TowerType.ELECTRIC, enemies, projectiles)
 
 # setup menu
 menu.add(MenuBackground(0, 0))
@@ -46,6 +47,9 @@ temp = Menuitem(spacing + 32 * 2, 16, 64, 64, towerfactoryFrost.menu_image, towe
 menu.add(temp)
 menuTower.add(temp)
 temp = Menuitem(spacing + 32 * 4, 16, 64, 64, towerfactoryNormal.menu_image, towerfactoryNormal.name, towerfactoryNormal)
+menu.add(temp)
+menuTower.add(temp)
+temp = Menuitem(spacing + 32 * 6, 16, 64, 64, towerfactoryElectric.menu_image, towerfactoryElectric.image, towerfactoryElectric)
 menu.add(temp)
 menuTower.add(temp)
 
