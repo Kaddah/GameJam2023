@@ -39,6 +39,7 @@ class Level():
         self.waveCounter = 0
 
         self.tiles = []
+        self.money = level_data["money"]
 
         for x in range(GRIDWIDTH):
             self.tiles.append([])

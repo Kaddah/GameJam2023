@@ -1,6 +1,7 @@
 {
   "Level1": {
     "imagePath": "assets/SpriteSheetLevel.png",
+    "money": 100000,
     "waves": [
       {
         "Spider": 5,

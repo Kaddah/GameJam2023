@@ -93,8 +93,10 @@ while True:
             mouse_tile_x = mouse_pos[0] // 32
             mouse_tile_y = mouse_pos[1] // 32
 
-            if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None:
-                towers.add(selectedTower.create(mouse_tile_x, mouse_tile_y))
+            if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0:
+                newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
+                towers.add(newTower)
+                level.money -= newTower.costs                
 
     # update
     towers.update()
@@ -119,6 +121,11 @@ while True:
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(str(int(clock.get_fps())), True, (255, 255, 255))
     screen.blit(text, (0, 0))
+
+    #text_money = level.money
+    text_money = font.render(str(int(level.money)), True, (255, 255, 255))
+    screen.blit(text_money, (50, 0))
+    print (level.money)
 
     # flip
     pygame.display.flip()
