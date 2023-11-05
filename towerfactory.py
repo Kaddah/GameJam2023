@@ -10,6 +10,7 @@ import json
 class TowerType(Enum):
     FROST = "Frosttower"
     FIRE = "Firetower"
+    NORMAL = "Normaltower"
 
 
 class TowerFactory:
@@ -26,6 +27,8 @@ class TowerFactory:
                 TOWER_DATA = TOWER_DATA["Firetower"]
             case TowerType.FROST:
                 TOWER_DATA = TOWER_DATA["Frosttower"]
+            case TowerType.NORMAL:
+                TOWER_DATA = TOWER_DATA["Normaltower"]
 
         self.image = pygame.image.load(TOWER_DATA["image_Path"])
         self.projectile_image = pygame.image.load(TOWER_DATA["projectile_image_Path"])
