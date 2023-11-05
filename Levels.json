@@ -2,7 +2,7 @@
   "Level1": {
     "name": "Level 1",
     "imagePath": "assets/SpriteSheetLevel.png",
-    "money": 100000,
+    "money": 500,
     "life": 20,
     "menuIcon_Path": "assets/Skull.png",
     "waves": [
@@ -198,7 +198,7 @@
   "Level2": {
     "name": "Level 2",
     "imagePath": "assets/SpriteSheetLevel.png",
-    "money": 80000,
+    "money": 450,
     "life": 10,
     "menuIcon_Path": "assets/Skull.png",
     "waves": [
@@ -390,7 +390,7 @@
   "Level3": {
     "name": "Level 3",
     "imagePath": "assets/SpriteSheetLevel.png",
-    "money": 50000,
+    "money": 400,
     "life": 20,
     "menuIcon_Path": "assets/Skull.png",
     "waves": [
