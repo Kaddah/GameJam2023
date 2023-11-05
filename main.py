@@ -22,18 +22,6 @@ pygame.display.set_caption("Tower Defenc")
 # clock
 clock = pygame.time.Clock()
 
-# load images
-# enemies
-ghost_image = gif_pygame.load("assets/Ghost.png")
-pumpkin_image = gif_pygame.load("assets/Pumpkin.png")
-spider_image = gif_pygame.load("assets/Spider.png")
-
-# load LEVEL
-with open("Levels.json") as f:
-    LEVEL_DATA = json.load(f)
-
-level = Level(LEVEL_DATA["Level1"])
-
 # Grouping
 enemies = pygame.sprite.Group()
 
@@ -45,6 +33,7 @@ projectiles = pygame.sprite.Group()
 
 towerfactoryFrost = TowerFactory(TowerType.FROST, enemies, projectiles)
 towerfactoryFire = TowerFactory(TowerType.FIRE, enemies, projectiles)
+towerfactoryNormal = TowerFactory(TowerType.NORMAL, enemies, projectiles)
 
 # setup menu
 menu.add(MenuBackground(0, 0))
@@ -55,8 +44,17 @@ menuTower.add(temp)
 temp = Menuitem(spacing + 32 * 2, 16, 64, 64, towerfactoryFrost.image, towerfactoryFrost.name, towerfactoryFrost)
 menu.add(temp)
 menuTower.add(temp)
+temp = Menuitem(spacing + 32 * 4, 16, 64, 64, towerfactoryNormal.image, towerfactoryNormal.name, towerfactoryNormal)
+menu.add(temp)
+menuTower.add(temp)
 
 selectedTower = None
+
+# load LEVEL
+with open("Levels.json") as f:
+    LEVEL_DATA = json.load(f)
+
+level = Level(LEVEL_DATA["Level1"],enemies)
 
 # arrow
 cursor = Arrow(0, 0)
@@ -75,15 +73,6 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 exit()
-            if event.key == pygame.K_p:
-                enemy_ghost = Enemy(level.getWaypoints(), ghost_image, 2, 5)
-                enemy_pumpkin = Enemy(level.getWaypoints(), pumpkin_image, 1, 5)
-                enemy_spider = Enemy(level.getWaypoints(), spider_image, 3, 5)
-                enemy_spider.rotation_offset = 90
-                enemies.add(enemy_ghost)
-                enemies.add(enemy_pumpkin)
-                enemies.add(enemy_spider)
-
             if event.key == pygame.K_w:
                 cursor.vertical(-32)
             elif event.key == pygame.K_s:
@@ -99,7 +88,7 @@ while True:
                         selectedTower = tower.obj
                         print("Selected Tower: ", selectedTower.name)
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             mouse_tile_x = mouse_pos[0] // 32
             mouse_tile_y = mouse_pos[1] // 32
@@ -112,6 +101,8 @@ while True:
     enemies.update()
     menu.update()
     projectiles.update()
+
+    level.spawnNextWave()
 
     # draw
     level.draw(screen)

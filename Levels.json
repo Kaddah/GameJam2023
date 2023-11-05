@@ -1,6 +1,113 @@
 {
   "Level1": {
     "imagePath": "assets/SpriteSheetLevel.png",
+    "waves": [
+      {
+        "Spider": 5,
+        "Ghost": 0,
+        "Pumpkin": 0
+      },
+      {
+        "Spider": 5,
+        "Ghost": 1,
+        "Pumpkin": 0
+      },
+      {
+        "Spider": 5,
+        "Ghost": 2,
+        "Pumpkin": 1
+      },
+      {
+        "Spider": 5,
+        "Ghost": 3,
+        "Pumpkin": 2
+      },
+      {
+        "Spider": 5,
+        "Ghost": 4,
+        "Pumpkin": 3
+      },
+      {
+        "Spider": 5,
+        "Ghost": 5,
+        "Pumpkin": 4
+      },
+      {
+        "Spider": 5,
+        "Ghost": 6,
+        "Pumpkin": 5
+      },
+      {
+        "Spider": 5,
+        "Ghost": 7,
+        "Pumpkin": 6
+      },
+      {
+        "Spider": 5,
+        "Ghost": 8,
+        "Pumpkin": 7
+      },
+      {
+        "Spider": 5,
+        "Ghost": 9,
+        "Pumpkin": 8
+      },
+      {
+        "Spider": 5,
+        "Ghost": 10,
+        "Pumpkin": 9
+      },
+      {
+        "Spider": 5,
+        "Ghost": 11,
+        "Pumpkin": 10
+      },
+      {
+        "Spider": 5,
+        "Ghost": 12,
+        "Pumpkin": 11
+      },
+      {
+        "Spider": 5,
+        "Ghost": 13,
+        "Pumpkin": 12
+      },
+      {
+        "Spider": 5,
+        "Ghost": 14,
+        "Pumpkin": 13
+      },
+      {
+        "Spider": 5,
+        "Ghost": 15,
+        "Pumpkin": 14
+      },
+      {
+        "Spider": 5,
+        "Ghost": 16,
+        "Pumpkin": 15
+      },
+      {
+        "Spider": 5,
+        "Ghost": 17,
+        "Pumpkin": 16
+      },
+      {
+        "Spider": 5,
+        "Ghost": 18,
+        "Pumpkin": 17
+      },
+      {
+        "Spider": 5,
+        "Ghost": 19,
+        "Pumpkin": 18
+      },
+      {
+        "Spider": 5,
+        "Ghost": 20,
+        "Pumpkin": 6
+      }
+    ],
     "waypoints": [
       {
         "x": -1,

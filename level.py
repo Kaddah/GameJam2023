@@ -1,7 +1,9 @@
 from enum import Enum
+import random
 
 import pygame.sprite
 
+from enemyfactory import EnemyFactory
 from settings import *
 from spritesheet import Spritesheet
 
@@ -19,9 +21,13 @@ TileType = Enum("TileType", "HORIZONTAL VERTICAL CORNERLEFTBOTTON CORNERLEFTTOP 
 
 
 class Level():
-    def __init__(self, level_data: dict):
+    def __init__(self, level_data: dict, enemies: pygame.sprite.Group):
+        self.spawnRate = 1000
+        self.lastSpawn = 0
+
         self.waypointsRaw = []
         self.waypoints = []
+        self.enemies = enemies
         for waypoint in level_data["waypoints"]:
             x = waypoint["x"] * GRID + (GRID * 0.5)
             y = waypoint["y"] * GRID + MENUHEIGHT + (GRID * 0.5)
@@ -29,6 +35,8 @@ class Level():
             self.waypoints.append((x, y))
 
         self.images = Spritesheet(level_data["imagePath"])
+        self.waves = level_data["waves"]
+        self.waveCounter = 0
 
         self.tiles = []
 
@@ -58,6 +66,8 @@ class Level():
                     img = 7
 
                 self.background.blit(self.images.get_image(img, 0), (i * GRID, j * GRID + MENUHEIGHT))
+
+        self.enemieFactory = EnemyFactory(self.waypoints)
 
     def isPointPath(self, point1) -> TileType:
         # is Waypoint
@@ -117,3 +127,32 @@ class Level():
 
         for waypoint in self.waypoints:
             pygame.draw.circle(screen, (255, 0, 0), waypoint, 3)
+
+    def createEnemy(self, name:str):
+        self.enemies.add(self.enemieFactory.create(name))
+
+    def spawnNextWave(self):
+        if pygame.time.get_ticks() < self.lastSpawn + self.spawnRate:
+            return
+        self.lastSpawn = pygame.time.get_ticks()
+
+        wave = self.waves[self.waveCounter]
+        # get random enemy from wave
+        randomEnemy =  list(wave)[random.randint(0, len(wave) - 1)]
+
+        wave[randomEnemy] -= 1
+        if wave[randomEnemy] >= 0:
+            self.createEnemy(randomEnemy)
+
+        counter = 0
+        for enemy in wave:
+            counter += wave[enemy]
+
+        if counter <= 0:
+            self.waveCounter += 1
+            self.spawnRate *= 0.95
+
+
+
+
+
