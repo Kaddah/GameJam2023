@@ -6,7 +6,7 @@ import pygame
 
 from arrow import *
 from enemy import Enemy
-from level import Level
+from level import Level, LevelMenuitem
 from menuitem import *
 from towerfactory import TowerType, TowerFactory
 
@@ -32,6 +32,8 @@ arrow = pygame.sprite.Group()
 menuTower = pygame.sprite.Group()
 projectiles = pygame.sprite.Group()
 
+levels = pygame.sprite.Group()
+
 towerfactoryFrost = TowerFactory(TowerType.FROST, enemies, projectiles)
 towerfactoryFire = TowerFactory(TowerType.FIRE, enemies, projectiles)
 towerfactoryNormal = TowerFactory(TowerType.NORMAL, enemies, projectiles)
@@ -55,6 +57,10 @@ selectedTower = None
 with open("Levels.json") as f:
     LEVEL_DATA = json.load(f)
 
+# setup Levelselect
+levels.add(LevelMenuitem(32, 32, 128, 128, Level(LEVEL_DATA["Level1"], enemies)))
+
+
 level = None
 
 # arrow
@@ -75,6 +81,10 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                exit()
 
     if gamestate == "start":
         #TODO: Add Startscreen
@@ -89,9 +99,26 @@ while True:
         screen.blit(text, (500, 500))
         c = 1
     elif gamestate == "levelselect":
-        #TODO: Add Levelselect
-        gamestate = "running"
-        level = Level(LEVEL_DATA["Level1"], enemies)
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    cursor.vertical(-32)
+                elif event.key == pygame.K_s:
+                    cursor.vertical(32)
+                elif event.key == pygame.K_a:
+                    cursor.horizontal(-32)
+                elif event.key == pygame.K_d:
+                    cursor.horizontal(32)
+
+                for l in levels:
+                    if l.rect.collidepoint(cursor.rect.center) and event.key == pygame.K_k:
+                        level = l.level
+                        gamestate = "running"
+
+
+        levels.update()
+        screen.fill((0, 100, 0))
+        levels.draw(screen)
         c = 1
     elif gamestate == "running":
         for event in events:
@@ -143,7 +170,6 @@ while True:
         enemies.draw(screen)
         menu.draw(screen)
         towers.draw(screen)
-        arrow.draw(screen)
         projectiles.draw(screen)
         # draw waypoints
         waypoints = level.getWaypoints()
@@ -155,6 +181,9 @@ while True:
         # money
         text_money = font.render("Money "+str(int(level.money)), True, (255, 255, 255))
         screen.blit(text_money, (WIDTH / 2 + WIDTH / 4, 10))
+
+    # draw cursor
+    arrow.draw(screen)
 
     # draw FPS
     font = pygame.font.Font('freesansbold.ttf', 32)
