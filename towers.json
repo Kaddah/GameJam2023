@@ -4,7 +4,7 @@
     "range": 100,
     "image_Path": "assets/Frost_Tower.png",
     "projectile_image_Path": "assets/Frost_Projectile.png",
-    "target_mode": "strongestEnemy",
+    "target_mode": "nextEnemy",
     "costs": 100
   },
   "Firetower": {
