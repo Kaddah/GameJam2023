@@ -1,4 +1,5 @@
 import json
+import random
 from sys import exit
 
 import gif_pygame
@@ -14,7 +15,7 @@ pygame.init()
 
 # Create the screen
 flags = pygame.FULLSCREEN | pygame.HWSURFACE
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT),flags)
 print(screen.get_size())
 
 # Title and Icon
@@ -77,6 +78,7 @@ arrow.add(cursor)
 # GAME States
 gamestate = "start"
 
+enemySpawning = True
 # Game Loop
 while True:
     clock.tick(60)
@@ -137,14 +139,13 @@ while True:
     elif gamestate == "running":
         for event in events:
             if event.type == ENEMYKILLED_EVENT:
-                level.money += 5
+                level.money += random.randint(1, 5)
             elif event.type == LIFELOST_EVENT:
                 level.life -= 1
                 if level.life <= 0:
                     gamestate = "gameover"
             elif event.type == GAMEWON_EVENT:
-                gamestate = "levelselect"
-                level = None
+                enemySpawning = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
@@ -165,9 +166,9 @@ while True:
                         mouse_pos = cursor.rect.center
                         mouse_tile_x = mouse_pos[0] // 32
                         mouse_tile_y = mouse_pos[1] // 32
-                        if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money > 0 and mouse_tile_y > 3:
-                            newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
 
+                        newTower = selectedTower.create(mouse_tile_x, mouse_tile_y)
+                        if selectedTower is not None and level.tiles[mouse_tile_x][mouse_tile_y - 4] is None and level.money >= newTower.costs and mouse_tile_y > 3:
                             #check if tower collides with other towers
                             possible = True
                             for tower in towers:
@@ -195,7 +196,8 @@ while True:
         menu.update()
         projectiles.update()
 
-        level.spawnNextWave()
+        if enemySpawning:
+            level.spawnNextWave()
 
         # draw
         level.draw(screen)
@@ -216,6 +218,13 @@ while True:
         # Round
         text_money = font.render("Round " + str(int(level.waveCounter)), True, (255, 255, 255))
         screen.blit(text_money, (WIDTH / 2 + WIDTH / 4, 90))
+
+        if enemySpawning == False and len(enemies) == 0:
+            enemySpawning = True
+            gamestate = "gamewon"
+            towers.empty()
+            level.reset()
+            level = None
 
     # draw cursor
     arrow.draw(screen)

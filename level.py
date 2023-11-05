@@ -22,6 +22,13 @@ TileType = Enum("TileType", "HORIZONTAL VERTICAL CORNERLEFTBOTTON CORNERLEFTTOP 
 
 class Level():
     def __init__(self, level_data: dict, enemies: pygame.sprite.Group):
+        self.life = None
+        self.waves = None
+        self.images = None
+        self.waveCounter = None
+        self.name = None
+        self.menuIcon = None
+        self.money = None
         self.spawnRate = 1000
         self.lastSpawn = 0
 
@@ -34,15 +41,13 @@ class Level():
             self.waypointsRaw.append((waypoint["x"], waypoint["y"]))
             self.waypoints.append((x, y))
 
-        self.life = level_data["life"]
-        self.images = Spritesheet(level_data["imagePath"])
-        self.waves = level_data["waves"]
-        self.waveCounter = 0
+        self.level_data = level_data
+        self.reset()
 
+
+        
         self.tiles = []
-        self.money = level_data["money"]
-        self.menuIcon = pygame.image.load(level_data["menuIcon_Path"])
-        self.name = level_data["name"]
+
 
         for x in range(GRIDWIDTH):
             self.tiles.append([])
@@ -73,6 +78,17 @@ class Level():
 
         self.enemieFactory = EnemyFactory(self.waypoints)
 
+
+    def reset(self):
+        self.spawnRate = 1000
+        self.lastSpawn = 0
+        self.money = self.level_data["money"]
+        self.menuIcon = pygame.image.load(self.level_data["menuIcon_Path"])
+        self.name = self.level_data["name"]
+        self.waveCounter = 0
+        self.life = self.level_data["life"]
+        self.images = Spritesheet(self.level_data["imagePath"])
+        self.waves = self.level_data["waves"]
     def isPointPath(self, point1) -> TileType:
         # is Waypoint
         for i in range(1, len(self.waypoints)):
