@@ -1,6 +1,8 @@
+import math
+
 import pygame
 from pygame.math import Vector2
-import math
+
 from animated_sprite import AnimatedSprite
 
 

@@ -1,7 +1,5 @@
-import math
-from typing import Any
 import pygame
-import math
+
 from projectile import Projectile
 
 

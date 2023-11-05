@@ -1,15 +1,12 @@
-import gif_pygame
-import pygame
-
-from projectile import Projectile
-from level import Level
-from enemy import Enemy
-from menuitem import *
-from arrow import *
 import json
-
 from sys import exit
 
+import gif_pygame
+
+from arrow import *
+from enemy import Enemy
+from level import Level
+from menuitem import *
 from towerfactory import TowerType, TowerFactory
 
 pygame.init()

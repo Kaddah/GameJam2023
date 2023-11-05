@@ -1,8 +1,9 @@
+from enum import Enum
+
 import pygame.sprite
 
-from spritesheet import Spritesheet
 from settings import *
-from enum import Enum
+from spritesheet import Spritesheet
 
 
 class TileType(Enum):

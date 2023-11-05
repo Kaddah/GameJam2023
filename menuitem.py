@@ -1,6 +1,6 @@
-from typing import Any
-from settings import *
 import pygame
+
+from settings import *
 
 
 class Menuitem(pygame.sprite.Sprite):

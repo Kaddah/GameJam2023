@@ -1,5 +1,4 @@
 import pygame
-import gif_pygame
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
